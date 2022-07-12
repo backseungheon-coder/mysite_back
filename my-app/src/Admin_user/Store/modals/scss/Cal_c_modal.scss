@@ -1,0 +1,90 @@
+.cal_create_body{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+
+
+    #container{
+        margin-top: 10px;
+        margin-bottom:10px;
+        width: 100%;
+        border: 1px solid rgb(214, 214, 214);
+        border-radius:10px;
+        height: 120px;
+        background-color: white;
+       
+    }
+    #container:hover{
+        background-color: rgb(245, 245, 245);
+        border: 1px solid rgb(170, 170, 170);
+    }
+}   
+
+
+.cal_inner_body{
+    width: 100%;
+    height: auto;
+
+    
+    
+    
+
+  
+    #inner_title{
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+        p{
+            font-size:24px;
+            margin-top:10px;
+        }
+        button{
+            height: 40px;
+            width: 40px;
+            border-radius:50%;
+            border: none;
+            background-color: rgb(250, 144, 144);
+            
+        }
+        button:hover{
+            background-color: rgb(213, 125, 125);
+            color: white;
+        }
+    }
+
+    .table{
+        margin-top: 0px !important;
+
+        tbody {
+            border-top: none !important;
+        }
+        #thead_tr{
+            height: 30px;
+        }
+    
+        #tbody_tr{
+            background-color: rgb(244, 244, 244);
+            height: 60px;
+    
+            button{
+                height: 40px;
+                width: 60px;
+                border-radius:5px;
+                border: 1px solid #92bce5;
+                background-color:#4492DA;
+                color: white;
+            }
+    
+            button:hover{
+                border: 1px solid #194672;
+                background-color:#3979b5;
+    
+            }
+        }
+    }
+    
+    
+ 
+    
+}

@@ -1,0 +1,24 @@
+th{
+    text-align: center;
+}
+td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table {
+    margin-top: 30px;
+}
+
+.table_btn >div{
+    margin-right:10px;
+}
+
+.table_btn >select{
+    margin-right:10px;
+}
+
+.table_btn >button{
+    margin-right:10px;
+    width:100px;
+}

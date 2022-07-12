@@ -1,0 +1,60 @@
+.dorp_con{
+    margin-top: 10px;
+    width:  100%;
+    height: 244px;
+    display: flex;
+    border: 2px dashed #A9A9A9;
+
+
+    .dropBox{
+        width: 80%;
+        height: 240px;
+        background-color: #F7F7F7;
+
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        overflow:hidden;
+
+        .div_grid{
+            display: grid;
+            grid-template-columns: 25% 25% 25% 25%;
+          
+        }
+
+    }
+    
+    .dorp_plus{
+        width: 20%;
+        height: 240px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+
+    }
+}
+
+
+
+
+.btn_del{
+    margin-bottom: 5px;
+    width: 90px;
+    border:none;
+    background-color: #FE2222;
+    color: white;
+}
+
+.drop_here{
+    width:100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    div{
+        color:#999999;
+    }
+}

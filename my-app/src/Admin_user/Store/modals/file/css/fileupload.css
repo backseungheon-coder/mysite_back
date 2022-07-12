@@ -1,0 +1,247 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+
+*{
+    margin: 0 auto; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Noto Sans KR', sans-serif;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none; 
+    color: #333;
+}
+.clearfix::after,.clearfix::before{
+    content: ""; 
+    display: block; 
+    clear: both;
+}
+
+body::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+
+#fileupload{
+    margin: 150px auto 0;
+}
+#fileupload .fileupload{
+    position: relative;
+    width: 700px;
+    height: inherit;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    z-index: 99;
+}
+.fileupload h3{
+    font-size: 20px; 
+    font-weight: 500; 
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom:12px; 
+}
+.fileupload input[type=file]{
+    display: none;
+}
+.fileupload input[type=file]+label{
+    float: right;
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 35px;
+    line-height: 33px;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    background: #3B91D0;
+    color: #fff;
+    border-radius: 5px;
+    padding-left: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-top: 25px;
+}
+.fileupload input[type=file]+label:hover{
+    background: #139dff;
+}
+.fileupload input[type=file]+label img{
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);  
+    width: 15px;
+}
+.fileupload button.allDownload{
+    display: inline-block;
+    position: relative;
+    width: 130px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #3B91D0;
+    color: #3B91D0;
+    padding-left: 25px;
+    margin-top: 25px;
+}
+.fileupload button.allDownload:hover{
+    background: #139dff;
+    border-color: #139dff;
+    color: #fff;
+}
+.fileupload button.allDownload img{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    filter: invert(55%) sepia(61%) saturate(533%) hue-rotate(165deg) brightness(100%) contrast(94%);
+}
+.fileupload button.allDownload:hover img{
+    filter: none;
+}
+.fileupload #image_container{
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;   
+    border-style: dashed;
+    margin: 10px 0;
+}
+.fileupload #image_container .cIcon{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+}
+.fileupload #image_container .cIcon p{
+    color: #a9a9a9;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    margin-top: -15px;
+}
+.fileupload #image_container .cIcon p span{
+    color: #d1d1d1;
+}
+.fileupload #image_container img{
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+}
+.fileupload .fBtn{
+    margin-top: 25px;
+    text-align: right;
+}
+.fileupload .fBtn button{
+    width: 70px;
+    height: 35px;
+    text-align: center;
+    background: #777;
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    position: relative;
+}
+.fileupload .fBtn button.fClose:hover{
+    background: #555;
+}
+
+#fileupload .fileupload2{
+    height: 700px;
+}
+.fileupload2 #image_container{
+    position: relative;
+    border-style: solid;
+    height: 332px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.fileupload2 #image_container::-webkit-scrollbar {
+    width: 8px;
+}
+.fileupload2 #image_container::-webkit-scrollbar-thumb {
+    height: 50%;
+    background: #3B91D0;
+    border-radius: 10px;
+}
+.fileupload2 #image_container::-webkit-scrollbar-track {
+    background: #e3e3e3
+}
+.fileupload2 #image_container .upImg ul{
+    padding: 10px;
+}
+.fileupload2 #image_container .upImg ul li{
+    float: left;
+    width: 23.8%;
+    height: 150px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    margin-right: 1.5%;
+    margin-bottom: 10px;
+}
+.fileupload2 #image_container .upImg ul li:nth-child(4){margin-right: 0;}
+.fileupload2 #image_container .upImg ul li:nth-child(5){margin-bottom: 0;}
+.fileupload2 #image_container .upImg ul li:nth-child(6){margin-bottom: 0px;}
+.fileupload2 #image_container .upImg ul li:nth-child(8){margin-right: 0;}
+.fileupload2  #image_container .upImg ul li::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    z-index: 0;
+    transition: all 0.5s;
+}
+.fileupload2  #image_container .upImg ul li:hover::after{
+    opacity: 0.5;
+}
+.fileupload2  #image_container .upImg ul li.licon2 img{
+    position: absolute;
+    top: 100px;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    z-index: 99;
+    transition: all 0.3s;
+}
+.fileupload2  #image_container .upImg ul li.licon2:hover img{
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+}
+.fileupload2  #image_container .upImg ul li.licon2 img:hover{
+    opacity: 1;
+}
+.fileupload2  #image_container .upImg ul li.licon2 img:first-child{
+    left: 12%;
+}
+.fileupload2  #image_container .upImg ul li.licon2 img:last-child{
+    right: 12%;
+}

@@ -1,0 +1,61 @@
+@mixin filledStyle() {
+    background-color: white;
+    color: white;
+  }
+  
+  @mixin alignCenter() {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px dotted rgb(205, 205, 205);
+  }
+  
+  .DragDrop {
+    margin-top: 20px;
+    height: 360px;
+    width: 100%;
+    @include alignCenter();
+    
+    &-File {
+      width: 100%;
+      
+      border: 2px dotted rgb(205, 205, 205);
+      border-radius: 10px;
+      
+
+      @include alignCenter();
+      cursor: pointer;
+      transition: 0.12s ease-in;
+  
+      &-Dragging {
+        @include filledStyle();
+      }
+    }
+  }
+
+  .img_con{
+    border: 2px solid rgb(205, 205, 205);
+    border-radius: 10px;
+    width: 100%;
+    height: 360px;
+
+  }
+
+.MuiImageListItemBar-titleWrap{
+    display:none;
+}
+.MuiImageListItemBar-actionIcon{
+    display: none;
+}
+
+.MuiImageList-root{
+    li:hover{
+        .MuiImageListItemBar-actionIcon{
+            display: inline;
+            
+        }
+    }
+}
