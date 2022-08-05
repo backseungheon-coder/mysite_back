@@ -7,18 +7,20 @@ import Acco_test from './Acco_test.js';
 import SearchIcon from '@mui/icons-material/Search';
 import FAQ_create_modal from './FAQ_create_modal.js';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
 function Matin_table(props){
+    const goturl = useSelector((state) => state);
     const [loadstate, setloadstate] = useState('loaded');
     const [row, setrows] = useState([])
 
     if(loadstate==='loaded'){
 
 
-            axios.get(`http://127.0.0.1:8000/FAQ`)
+            axios.get(`${goturl}/FAQ`)
             .then((response) => {
                 setrows([...response.data])
                 setloadstate('needload') 

@@ -1,10 +1,12 @@
 import React, {  useState } from 'react';
 import { Modal,Button } from 'react-bootstrap';
 import Create_modal from "./modals/Create_modal.js";
-
+import {useSelector} from 'react-redux';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import styled from "styled-components";
+
+
 
 const Button_store = styled.button`
 background: transparent;
@@ -21,7 +23,7 @@ border-radius:6px;
 
 function Button_bottom(props){
     
-
+    const goturl = useSelector((state) => state);
         return(
             <Box  style={{width:'100%'} }>
                     
@@ -34,7 +36,7 @@ function Button_bottom(props){
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
                             axios
-                                .post("http://127.0.0.1:8000/store/", {
+                                .post("${goturl}/store/", {
                                             mode:'create',
                                             agency_id:props.agency,
                                             store_name: props.store_name,

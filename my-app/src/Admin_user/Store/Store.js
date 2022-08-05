@@ -17,6 +17,8 @@ import {FileExcel2} from '@styled-icons/remix-line/FileExcel2';
 import Date_picker from './Date_picker.js'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {useSelector} from 'react-redux';
+
 
 
 const Ex_Button = styled.button`
@@ -65,11 +67,11 @@ function Main_table(){
     // const ExampleCustomInput = ({ value, onClick }) => (
     //     <Button variant="outline-secondary"className="example-custom-input" style={{margin:0,width:130}} onClick={onClick}>{value}</Button>
     // );
-
+    const goturl = useSelector((state) => state);
 
 
     if(load === 'needload'){
-        axios.get(`http://127.0.0.1:8000/agency/`)
+        axios.get(`${goturl}/agency/`)
         .then((response) => {
         seta_data([...response.data])
         setLoad('laoded')        
@@ -105,7 +107,7 @@ function Main_table(){
 
                       onClick={() => {
                       
-                            const url ="http://127.0.0.1:8000/create/excel/";
+                            const url =`${goturl}/create/excel/`;
                             const formData = new FormData();
                             var counter = 0;
                             for(var i = 0; i < checked.length; i++) {
@@ -123,7 +125,7 @@ function Main_table(){
                                 "Content-Type":"application/json",
                                 }
                         }).then(function(response){
-                          var url_local = "http://127.0.0.1:8000"
+                          var url_local = `${goturl}`
                           var media = response.data
                           var donw = url_local+media
                           fetch(donw)
@@ -132,7 +134,7 @@ function Main_table(){
                               fileDownload(blob, '가맹점_리스트.xlsx');
                           })
                           .then(function(e){
-                            const del_url ="http://127.0.0.1:8000/create/excel/";
+                            const del_url =`${goturl}/create/excel/`;
                             const del_formData = new FormData();
                             del_formData.append("mode",'del')
 

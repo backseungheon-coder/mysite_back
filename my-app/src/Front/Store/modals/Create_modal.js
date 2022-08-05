@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FloatingLabel,Form } from 'react-bootstrap';
 import axios from 'axios';
-
+import {useSelector} from 'react-redux';
 
 
 
@@ -22,18 +22,34 @@ export default function ControlledTabs(props) {
     const onChange3 = (event) => {props.getaddr(event.target.value);}
     const onChange4 = (event) => {props.getstate(event.target.value);}
     const onChange5 = (event) => {props.getmemo(event.target.value);}
-    const onChange6 = (event) => {props.setAgency(event.target.value);}
-
+    const goturl = useSelector((state) => state);
     
 
 
     if(load === 'needload'){
-        axios.get(`http://127.0.0.1:8000/agency/`)
-        .then((response) => {
-        seta_data([...response.data])
+
+
+
+
+      const url =`${goturl}/agency/`;
+      const formData = new FormData();
+      formData.append('mode', 'get');
+      formData.append('id', window.localStorage.getItem('id'));
+      axios({
+          method: "post",
+          url: url,
+          data: formData,
+          headers:{
+              "Content-Type":"application/json",
+              }
+      }).then((response) => {
+        console.log(response.data)
+        seta_data(response.data)
+        props.setAgency(response.data.id)
         setLoad('laoded')
         
       })
+
     }
       
     
@@ -42,16 +58,10 @@ export default function ControlledTabs(props) {
     
       <>
         <Form.Select aria-label="Default select example" className="mb-3" style={{height:'60px'}}
-        onChange={onChange6}
         >
-                        <option>대리점</option>
-                        {a_data.map((event,idx)=>(
-                            <option value={event.id} key={idx}>{event.agency_name}</option>
-                        ))}
+                            <option value={a_data.id}>{a_data.agency_name}</option>
             </Form.Select>
             
-
-
             <FloatingLabel
                     controlId="floatingInput"
                     label="건축사무소명"

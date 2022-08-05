@@ -31,9 +31,8 @@ export default function BasicMenu() {
 
 
     .then(response => {
-    
+    window.location.href='/'
     window.localStorage.clear();
-    window.location.reload();
     })
   }
 

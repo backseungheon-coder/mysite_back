@@ -6,7 +6,7 @@ import {useDropzone} from 'react-dropzone'
 import { borderRadius } from '@mui/system';
 import BackupIcon from '@mui/icons-material/Backup';
 import styled, { css } from 'styled-components'
-
+import {useSelector} from 'react-redux';
 
 
 const Button_create = styled.button`
@@ -34,6 +34,7 @@ export default function FAQ_modal(props) {
     const [content,setContent] =useState('');
     const [cate,setCate] =useState('');
     const [radioValue, setRadioValue] = useState('1');
+    const goturl = useSelector((state) => state);
 
 
 
@@ -119,7 +120,7 @@ export default function FAQ_modal(props) {
                         
                         onClick={()=>{
                             axios
-                            .post("http://127.0.0.1:8000/FAQ/", {
+                            .post(`${goturl}/FAQ/`, {
                                 mode:'create',
                                 faq_title:title,
                                 faq_catego:cate,

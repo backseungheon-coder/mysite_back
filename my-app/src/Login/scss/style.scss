@@ -13,7 +13,7 @@
 
 .clearfix::after,.clearfix::before{
     content: ""; 
-    display: block; 
+    display: blocfk; 
     clear: both;
 }
 
@@ -426,4 +426,29 @@
         border-radius: 10px;
         text-align: justify;
     }
+}
+
+#loginwrap #right .inputCheck label::after{
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+}
+.vox{
+    display: flex;
+    flex-direction: column;
+
+}
+.Agreement{
+    margin-top: 10px;
+    border-top: 1px solid rgb(177, 177, 177);
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkcon{
+    display: flex;
+    align-items: center;
 }

@@ -32,7 +32,7 @@ function Main(props) {
         <Toolbar variant="dense" id='toolbar' >
           <div id="barcon">
             <div id="logo_box">
-              <NavLink exact="true" to="/">
+              <NavLink exact="true" to="/dash">
                 <Typography variant="h6" color="black" component="div">
                 <img src={ require('../img/logo.png') }  width='70'height='50'/>
                 </Typography>
@@ -80,7 +80,7 @@ function Main(props) {
     <Containerr root='false' maxWidth='false' sx={{flex:'10',width:'100%',margin:'0px',padding:'0px !important' }} >
       
       <Routes >
-      <Route  exact="true" path="/" element={<Dash />} />
+      <Route  exact="true" path="/dash" element={<Dash />} />
         <Route  exact="true" path="/store" element={<Store />} />
         <Route  exact="true" path="/agency"  element={<Agency />}/>
         <Route  exact="true" path="/cal"  element={<Cal />}/>

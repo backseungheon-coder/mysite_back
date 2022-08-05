@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './scss/style.scss' 
-
+import {Link  } from "react-router-dom";
+import Signup from '../Signup/Signup'
+import { useDispatch,useSelector } from 'react-redux';
 function Login(props) {
     const [inputId, setInputId] = useState('')
     const [inputE, setInputE] = useState('')
     const [inputPw, setInputPw] = useState('')
-    
+    const url = useSelector((state)=> state)
+    const dispatch = useDispatch()
 	// input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
     const handleInputId = (e) => {
         setInputId(e.target.value)
         console.log(e.target.value)
     }
- 
+
     const handleInputPw = (e) => {
         setInputPw(e.target.value)
         console.log(e.target.value)
@@ -21,17 +24,11 @@ function Login(props) {
     const handleInputE = (e) => {
         setInputE(e.target.value)
     }
-    // var body = {
-    //     "username":inputId,
-    //     "email":'',
-    //     "password":inputPw,
 
-    // }
-	// login 버튼 클릭 이벤트
     const onClickLogin = async () => { 
 
           
-            await fetch('http://localhost:8000/rest-auth/login/', {
+            await fetch('https://api.nestatest.shop/rest-auth/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,10 +49,12 @@ function Login(props) {
                     
                     window.localStorage.setItem("loggeduser", inputId);
                     window.localStorage.setItem("key", response.key);
+                    
                     props.setlogined('logged')
+
                 }
                 axios
-                    .post("http://127.0.0.1:8000/agency/", {
+                    .post("https://api.nestatest.shop/admin/agency/", {
                                 mode:'get_log',
                                 username:inputId,
                             })
@@ -63,108 +62,20 @@ function Login(props) {
                                 console.log(response.data)
                                 window.localStorage.setItem("id", response.data.id);
                                 window.localStorage.setItem("level", response.data.level);
-                                window.location.reload();
+                                console.log(response.data.level)
+                                window.location.replace('/dash')
+                                
                             })
                             .catch(function (error) {
                                 console.log(error);
                             })
-                 })
-               
-
-
-       
-
-                
+                 })                
                 
             //   })
     }
-    
-	// // 페이지 렌더링 후 가장 처음 호출되는 함수
-    // useEffect(() => {
-
-    //     axios.get('http://127.0.0.1:8000/login/')
-    //     .then(res => console.log(res))
-    //     .catch()
-
-    // },
-    // // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-    // [])
 
     return(
                  <>
-        {/* <div id="test" style={{width: '100%', height: '100%'}}>
-        <div id="wrap" style={{
-
-        }}>
-        <div id="header">
-            
-            <h2>로그인</h2>
-        </div>
-       
-        <div id="contents">
-            <div id="css_tabs">
-              
-              
-                <header>
-                    <label style={{fontSize:'30px'}}>로그인</label>
-                
-                </header>
-            
-                <div className="tab1_content tc">
-                    <div>
-                        <div className="input_id input">
-                            <span>아이디</span>
-                            <input type="string" className="inp" placeholder="아이디를 입력해주세요" value={inputId} onChange={handleInputId}/>
-              
-                        </div>
-                        <div className="input_id input">
-                            <span>이메일</span>
-                            <input type="email" className="inp" placeholder="이메일을 입력해주세요" value={inputE} onChange={handleInputE}/>
-              
-                        </div>
-                        <div className="input_password input">
-                            <span>비밀번호</span>
-                            <input type="password" className="inp" placeholder="비밀번호를 입력해주세요" value={inputPw} onChange={handleInputPw}/>
-                        
-                        </div>
-                    </div>
-                    <div className="middle clearfix">
-                        <div className="remember">
-                            <label>
-                                <input type="checkbox" id="check"/>
-                                <i className="cbox"></i>
-                                <span>아이디 저장</span>
-                            </label>
-                        </div>
-                        <div className="forget">
-                            <ul>
-                                <li ><a href="#">아이디 찾기</a></li>
-                                <li>
-                                    <a href="#">비밀번호 찾기</a>
-                                  
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="input_login">
-                        <div className="input_email">
-                            <input onClick={onClickLogin} type="submit" className="ma" value="로그인"/>
-                        </div>
-                   
-                    </div>
-          
-                    <div className="input_join">
-                        <div className="mak"><a href="#">회원가입</a></div>
-                    </div>
-                </div>
-    
-            </div>
-         
-        </div>
- 
-    </div>
-    </div> */}
-
 
     <div id="loginwrap">
         <div id="right">
@@ -188,7 +99,7 @@ function Login(props) {
                         <button type="button">show</button>
                         <button type="button" className="passwordEye">hide</button>
                     </div>
-
+                    
                     <input onClick={onClickLogin} type="submit" name="uSubmit" id="uSubmit" value="로그인" />
                     
                     <div className="clearfix">
@@ -197,12 +108,18 @@ function Login(props) {
                             <label >
                                 <span>로그인 유지</span>
                             </label>
+                                
                         </div>
+
                         <div className="forgot"><a href="#">비밀번호 찾기</a></div>
                     </div>
                 </div>
 
-                <div className="su"><a href="#">아직 계정이 없으신가요? <span>회원가입</span></a></div>
+                <div className="su">
+
+                    <Link to="Signup">아직 계정이 없으신가요? <span>회원가입</span></Link>
+
+                    </div>
             </div>
         </div>
     </div>

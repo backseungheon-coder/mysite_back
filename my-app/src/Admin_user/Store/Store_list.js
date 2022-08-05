@@ -10,6 +10,8 @@ import Cal_modal from "./modals/Cal_modal.js";
 import './Store.css';
 import Pagination from './Pagination.jsx'
 import Form from 'react-bootstrap/Form';
+import {useSelector} from 'react-redux';
+
 
 function createData( check,NO,agency,  user_data, division, create_date, file_up, memo, now,cal,management) {
     return {  check,NO,agency,  user_data, division, create_date, file_up, memo, now,cal,management};
@@ -38,7 +40,7 @@ export default function Table_store(props) {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const [totalcount, setTotalcount] = useState();
-  
+  const goturl = useSelector((state) => state);
 
   const allchaneHandler = () =>{
     setAllchecked(!allchecked)
@@ -64,7 +66,7 @@ export default function Table_store(props) {
   };
 
   if(loadstate==='loaded' || props.change==='needchange'){
-    axios.get(`http://127.0.0.1:8000/store/`)
+    axios.get(`${goturl}/store/`)
     .then((response) => {
       setrows([...response.data])
       setloadstate('needload')

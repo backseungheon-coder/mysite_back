@@ -9,14 +9,13 @@ from turtle import title
 from urllib import request
 from webbrowser import get
 from django.shortcuts import render,get_list_or_404
-from .models import Review
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework.generics import get_object_or_404 
-from .serializers import ReviewSerializer,TabsSerializer,Notice_get_Form,StoreSerializer,MemoSerializer,AccountSerializer,userSerializer,DocumentForm,LevelSerializer,Cal_create_Form,Cal_get_inner_Form,GroupSerializer,FAQ_create_Form,UserForm,GroupcreateSerializer,Useredit,RequestForm,CommentsForm,Cal_get_Form,FAQ_get_Form
-from .models import Review,Tabs,Store,User,Level,Notice,Notice_file,Group_user,Division,Requests,Comments,CalAdd,FAQ,Cal_inner,Cal_store,Images
+from ..serializers import ReviewSerializer,TabsSerializer,Notice_get_Form,StoreSerializer,MemoSerializer,AccountSerializer,userSerializer,DocumentForm,LevelSerializer,Cal_create_Form,Cal_get_inner_Form,GroupSerializer,FAQ_create_Form,UserForm,GroupcreateSerializer,Useredit,RequestForm,CommentsForm,Cal_get_Form,FAQ_get_Form
+from ..models import Review,Tabs,Store,User,Level,Notice,Notice_file,Group_user,Division,Requests,Comments,CalAdd,FAQ,Cal_inner,Cal_store,Images
 from django.utils import timezone
 import json
 from django.http import JsonResponse ,HttpResponse
@@ -470,7 +469,6 @@ class Num_a(APIView):
         level = Level.objects.all()
         store = Store.objects.all()
         userlist = []
-        
 
         agency = User.objects.order_by('-date_joined')
 
@@ -643,7 +641,6 @@ class SearchView(APIView):
         search_num = request.data.get('search_num')
         select = request.data.get('select')
         search_email = request.data.get('search_email')
-
 
         if search_name:
                agency = agency.filter(
@@ -1053,6 +1050,7 @@ class FileDownloadView(SingleObjectMixin, APIView):
             store = get_object_or_404(Store,pk=store_id)
             image_list = get_list_or_404(Images, store_id=store )
             Basedir = str(settings.BASE_DIR)
+            print(Basedir)
             counter = 0
             list_img = []
 
@@ -1119,26 +1117,18 @@ class Excel_Create_View(APIView):
 
             file_path = settings.MEDIA_ROOT
             filepath = file_path+"/test.xlsx"
-
-
-
+            
             filename = excel_create(filepath)
-
-
 
             return JsonResponse(filename,safe=False)
 
-
         elif request.data.get('mode') == 'del':
             file_path = settings.MEDIA_ROOT
-
-
 
             os.remove(file_path + "\\test.xlsx")
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
 
 #--------------------------------------------------------대시보드 --------------------------------------------------------------------
 
@@ -1148,7 +1138,7 @@ class Dash_Admin_view(APIView):
         store_count = 0
         day_agency_count = 0
         month_agency_count = 0
-        
+
         agency = User.objects.all();
         store = Store.objects.all();
 
@@ -1176,11 +1166,7 @@ class Dash_Admin_view(APIView):
                     data_agency=data_agency+1
             adata = {'name': str(x.agency_name), '실적': data_agency, 'pv': 2400, 'amt': 2400}
         
-            
             list.append(adata)
-            
-
-
 
         data= {
             "agency": agency_count,
@@ -1195,13 +1181,3 @@ class Dash_Admin_view(APIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class Dash_Front_view(APIView):
-    def get(self,pk):
-
-
-
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    def post(self, request , pk):
-
-        return Response(status=status.HTTP_204_NO_CONTENT)

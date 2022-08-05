@@ -37,7 +37,6 @@ export default function SimpleAccordion(props) {
                         {props.con}
                     </div>
                 </div>
-                <FAQ_modal_edit setloadstate={props.setloadstate} id={props.id} faq_title={props.quest} contents={props.con} faq_catego={props.faq_catego} visdis={props.visdis}/>
                 
             </div>
         </AccordionDetails>

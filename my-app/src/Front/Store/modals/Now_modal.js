@@ -3,7 +3,7 @@ import { ToggleButton,Modal,FloatingLabel,Button,ButtonGroup,Form } from 'react-
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import styled from 'styled-components'
-
+import {useSelector} from 'react-redux';
 
 const Examine_button = styled.button`
 width:65px;
@@ -33,7 +33,7 @@ export default function Now_mdoal(props) {
     const [radioValue, setRadioValue] = useState(props.now);
     const [radiovari, setradiovari] = useState(props.nowbtn);
 
-
+    const goturl = useSelector((state) => state);
 
     if(props.now === '대기'){
         var radio_color=('transparent')
@@ -111,7 +111,7 @@ export default function Now_mdoal(props) {
                         name="radio"
                         value={radio.value}
                         checked={radioValue === radio.value}
-                        onChange={(e) => {
+                        onChange={(e) => {     
                             setRadioValue(e.currentTarget.value);
                         }
                         }
@@ -133,9 +133,9 @@ export default function Now_mdoal(props) {
                             취소
                             </Button>
                             <Button style={{marginLeft:2} } variant="primary" 
-                            onClick={() => {  
+                            onClick={() => { 
                                 axios
-                                .post("http://127.0.0.1:8000/store/", {
+                                .post(`${goturl}/store/`, {
                                             mode:'now',
                                             id:props.id,
                                             now:radioValue,

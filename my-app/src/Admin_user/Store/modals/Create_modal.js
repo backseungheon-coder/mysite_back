@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FloatingLabel,Form } from 'react-bootstrap';
 import axios from 'axios';
-
+import {useSelector} from 'react-redux';
 
 
 
@@ -23,12 +23,12 @@ export default function ControlledTabs(props) {
     const onChange4 = (event) => {props.getstate(event.target.value);}
     const onChange5 = (event) => {props.getmemo(event.target.value);}
     const onChange6 = (event) => {props.setAgency(event.target.value);}
-
+    const goturl = useSelector((state) => state);
     
 
 
     if(load === 'needload'){
-        axios.get(`http://127.0.0.1:8000/agency/`)
+        axios.get(`${goturl}/agency/`)
         .then((response) => {
         seta_data([...response.data])
         setLoad('laoded')

@@ -32,8 +32,8 @@ export default function BasicMenu() {
 
     .then(response => {
     
-    window.localStorage.clear();
-    window.location.reload();
+      window.location.href='/'
+      window.localStorage.clear();
     })
   }
 
@@ -48,7 +48,6 @@ export default function BasicMenu() {
       >
         <Avatar src="/broken-image.jpg" />
       </Button>
-
 
       
       <Menu

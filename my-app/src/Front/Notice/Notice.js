@@ -11,6 +11,8 @@ import Notice_file from './Norice_file.js';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import fileDownload from 'react-file-download';
+import {useSelector} from 'react-redux';
+
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const Button_up = styled.button`
@@ -125,7 +127,7 @@ function Matin_table(props){
     const [file_list,setFileList] = useState([]);
     const [inner_item,setInneritem] = useState([]);
     const [ notice_id, setID] = useState('');
-    
+    const goturl = useSelector((state) => state);
     const ExampleCustomInput = ({ value, onClick }) => (
         <Button variant="outline-secondary"className="example-custom-input" style={{margin:0,width:130}} onClick={onClick}>{value}</Button>
     );
@@ -156,7 +158,7 @@ function Matin_table(props){
             formData.append("counter",i)
             formData.append("id",e)
     
-            const url ="http://127.0.0.1:8000/notice/create/"
+            const url =`${goturl}/notice/create/`
     
             axios({
                 method: "POST",
@@ -329,7 +331,7 @@ function Matin_table(props){
                     <div style={{float:'right'}}>
                         <Button_up
                             onClick={(e)=>{
-                                    const url ="http://127.0.0.1:8000/notice/create/";
+                                    const url =`${goturl}/notice/create/`;
                                     const formData = new FormData();
                                     formData.append("mode",'post')
                                     formData.append("contents",notice_data)
@@ -455,7 +457,7 @@ function Matin_table(props){
                     <div style={{float:'right'}}>
                         <Button_up
                             onClick={(e)=>{
-                                    const url ="http://127.0.0.1:8000/notice/create/";
+                                    const url =`${goturl}/notice/create/`;
                                     const formData = new FormData();
                                     formData.append("mode",'post')
                                     formData.append("contents",notice_data)
@@ -520,7 +522,7 @@ function Matin_table(props){
                                 {file_list.map((event,idx)=>{
                                    return(<a href='#' key={idx} style={{fontSize:'15px',color:'#333333'}}
                                    onClick={(e)=>{
-                                    var url_local = "http://127.0.0.1:8000"
+                                    var url_local = 'http://127.0.0.1:8000'
                                     var url  = event.url
                                     var donw = url_local+url
 
@@ -543,27 +545,6 @@ function Matin_table(props){
                             </div>
                             <div className={'footer'} style={{borderTop:'1px solid #D1D1D1'}}>
                                 <div style={{display:'flex',justifyContent: 'space-between',marginTop:'20px'}}>
-                                    <Button_del
-                                    onClick={(e)=>{
-                                    const url ="http://127.0.0.1:8000/notice/create/";
-                                    const formData = new FormData();
-                                    formData.append("mode",'delete')
-                                    formData.append("id",inner_item.id);
-
-                                axios({
-                                    method: "POST",
-                                    url: url,
-                                    data: formData,
-                                    headers:{
-                                        "Content-Type":"application/json",
-                                        }
-                                }).then(function(response){
-                                    alert('hi');
-                                    setdisplay('notice')
-                                })
-                            }}
-                                    >삭제</Button_del>
-                                    <Button_rp onClick={() => setdisplay('edit')}>수정</Button_rp>
                                 </div>
                             </div>
                         </Inner_line>
