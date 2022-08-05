@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -68,7 +68,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'drfProject.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -89,7 +89,7 @@ TEMPLATES = [
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True # E-mail address is automatically confirmed by a GET request
 ACCOUNT_EMAIL_VERIFICATION = 'none' # Allow logins with an unverified e-mail address
 
-WSGI_APPLICATION = 'drfProject.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
