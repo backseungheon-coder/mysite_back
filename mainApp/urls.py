@@ -9,45 +9,45 @@ from . import views
 
 urlpatterns = [
 
-    path('admin/store/', StoreList.as_view()),
-    path('admin/comments/', CommentList.as_view()),
-    path('admin/store_del/<int:pk>', Store_del.as_view()),
-    path('admin/tab_review/', TabView.as_view()),
-    path('admin/tab_review/<int:pk>', TabDelete.as_view()),
-    path('admin/review/<int:pk>', ReviewDetail.as_view()),
+    path('manager/store/', StoreList.as_view()),
+    path('manager/comments/', CommentList.as_view()),
+    path('manager/store_del/<int:pk>', Store_del.as_view()),
+    path('manager/tab_review/', TabView.as_view()),
+    path('manager/tab_review/<int:pk>', TabDelete.as_view()),
+    path('manager/review/<int:pk>', ReviewDetail.as_view()),
 
     #agency
-    path('admin/agency/', AgencyList.as_view()),
-    path('admin/agency_del/', Agency_del.as_view()),
-    path('admin/agency/level', LevelList.as_view()),
-    path('admin/agency/groups', GroupList.as_view()),
-    path('admin/signup/', Signupview.as_view()),
-    path('admin/search/', SearchView.as_view()),
+    path('manager/agency/', AgencyList.as_view()),
+    path('manager/agency_del/', Agency_del.as_view()),
+    path('manager/agency/level', LevelList.as_view()),
+    path('manager/agency/groups', GroupList.as_view()),
+    path('manager/signup/', Signupview.as_view()),
+    path('manager/search/', SearchView.as_view()),
 
-    path('admin/agency_num/', Num_a.as_view()),
+    path('manager/agency_num/', Num_a.as_view()),
 
     #Cal
-    path('admin/Cal/', Cal_list.as_view()),
+    path('manager/Cal/', Cal_list.as_view()),
 
     #FAQ
-    path('admin/FAQ/', FAQ_list.as_view()),
+    path('manager/FAQ/', FAQ_list.as_view()),
 
-    path("admin/upload/", Images_view.as_view()),
-    path("admin/fileread/", LoadView.as_view()),
-    path("admin/img_del/", Image_Del_View.as_view()),
-    path('admin/download/',
+    path("manager/upload/", Images_view.as_view()),
+    path("manager/fileread/", LoadView.as_view()),
+    path("manager/img_del/", Image_Del_View.as_view()),
+    path('manager/download/',
          FileDownloadView.as_view()),
 
     #Notice
-    path("admin/notice/create/", Notice_view.as_view()),
-    path("admin/notice/get/", Notice_view.as_view()),
-    path("admin/notice/up/", Notice_view.as_view()),
+    path("manager/notice/create/", Notice_view.as_view()),
+    path("manager/notice/get/", Notice_view.as_view()),
+    path("manager/notice/up/", Notice_view.as_view()),
 
 
-    path("admin/create/excel/",Excel_Create_View.as_view()),
+    path("manager/create/excel/",Excel_Create_View.as_view()),
 
     #Dash
-    path("admin/dash/",Dash_Admin_view.as_view()),
+    path("manager/dash/",Dash_Admin_view.as_view()),
 
 #------------------------------------------------------------프론트-------------------------------------------------------
 
