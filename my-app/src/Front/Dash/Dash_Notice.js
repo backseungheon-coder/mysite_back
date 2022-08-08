@@ -4,14 +4,14 @@ import { Table } from 'react-bootstrap';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import {useSelector} from 'react-redux';
 export default function Notice_list(props){
     
     const [rows, setrows] = useState([]);
     const [loaded, setloaded] = useState('needloade');
     const [show, setShow] = useState(false);
 
-
+    const goturl = useSelector((state) => state);
     const [Notice_cate,setNotice_cate] = useState('');
     const [created_date, setcreated_date] = useState('');
     const [notice_title,setnotice_title]  = useState('');
@@ -22,7 +22,7 @@ export default function Notice_list(props){
     const handleShow = () => setShow(true);
 
     if(loaded === 'needloade'){
-      const url ="http://127.0.0.1:8000/notice/get/";
+      const url =`${goturl}/notice/get/`;
     axios({
         method: "GET",
         url: url,

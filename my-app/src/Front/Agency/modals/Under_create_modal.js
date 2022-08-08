@@ -4,6 +4,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import styled from 'styled-components'
+import {useSelector} from 'react-redux';
 
 const Button = styled.button`
 background: #06DE28;
@@ -29,7 +30,7 @@ function Agency_edit(props){
     const onChange5 = (event) => {props.setmanager_name(event.target.value);}
     const onChange6 = (event) => {props.setagency_email(event.target.value);}
 
-
+    const goturl = useSelector((state) => state);
     return(
         <>
         <TextField fullWidth  className="mb-3" label="대리점ID" value={props.username} onChange={onChange1} variant="outlined" />
@@ -63,7 +64,7 @@ export default function Memo_modal(props) {
     const [manager_name,setmanager_name] = useState('');
     const [agency_email,setagency_email] = useState('');
 
-
+    const goturl = useSelector((state) => state);
    
 
   
@@ -103,7 +104,7 @@ export default function Memo_modal(props) {
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
                             axios
-                            .post("http://127.0.0.1:8000/signup/", {
+                            .post(`${goturl}/signup/`, {
                                         mode:'under',
                                         id:props.id,
                                         username:username,

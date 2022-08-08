@@ -9,7 +9,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 import Dash_Notice from './Dash_Notice.js'
-
+import {useSelector} from 'react-redux';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -107,12 +107,14 @@ function Matin_table(props){
     const [loadstate, setloadstate] = useState('needload');
     const [row, setrows] = useState([]);
     const [data,setdata] = useState([]);
+    const goturl = useSelector((state) => state);
     if(loadstate ==='needload'){
-        const url ="http://127.0.0.1:8000/dash/";
+        const url =`${goturl}/dash/`;
         const formData = new FormData();
+        formData.append("id",window.localStorage.getItem('id'));
 
         axios({
-            method: "GET",
+            method: "POST",
             url: url,
             data: formData,
             headers:{

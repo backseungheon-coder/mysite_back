@@ -4,7 +4,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import styled from 'styled-components'
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-
+import {useSelector} from 'react-redux';
 const Button_edit = styled.button`
   background: transparent;
   border:none;
@@ -17,7 +17,7 @@ const Button_edit = styled.button`
 
 export default function FAQ_modal(props) {
 
-
+    const goturl = useSelector((state) => state);
     const [addr, getaddr] = useState('');
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -104,7 +104,7 @@ export default function FAQ_modal(props) {
                     
                     onClick={()=>{
                         axios
-                        .post("http://127.0.0.1:8000/FAQ/", {
+                        .post(`${goturl}/FAQ/`, {
                             mode:'delete',
                             id:props.id,
 
@@ -135,7 +135,7 @@ export default function FAQ_modal(props) {
                         
                         onClick={()=>{
                             axios
-                            .post("http://127.0.0.1:8000/FAQ/", {
+                            .post(`${goturl}/FAQ/`, {
                                 mode:'edit',
                                 id:props.id,
                                 faq_title:title,

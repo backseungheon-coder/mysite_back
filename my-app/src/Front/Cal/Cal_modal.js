@@ -3,7 +3,7 @@ import { Modal,FloatingLabel,Button,Form } from 'react-bootstrap';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import styled from "styled-components";
-
+import {useSelector} from 'react-redux';
 
 const Button_cal = styled.button`
 background: transparent;
@@ -23,7 +23,7 @@ export default function Cal_modal(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [title,setTitle] =useState('');
-
+    const goturl = useSelector((state) => state);
 
 
     return (
@@ -63,7 +63,7 @@ export default function Cal_modal(props) {
                         
                         onClick={()=>{
                             axios
-                            .post("http://127.0.0.1:8000/Cal/", {
+                            .post(`${goturl}/Cal/`, {
                                 mode:'create',
                                 cal_title:title,
                                     })

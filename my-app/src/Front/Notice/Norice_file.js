@@ -9,10 +9,11 @@ import ImageList from '@mui/material/ImageList';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
+import {useSelector} from 'react-redux';
 export default function Notice_file(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
+    const goturl = useSelector((state) => state);
     // const [ list_img, setImg ] = useState([])
     // const [send_list, setsend_list] = useState([]);
     // const [ previewImg, setPreviewImg ] = useState([])

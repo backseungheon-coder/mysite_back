@@ -3,10 +3,11 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
-
+import {useSelector} from 'react-redux';
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const goturl = useSelector((state) => state);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -16,7 +17,7 @@ export default function BasicMenu() {
 
   function handlelogout(e) {
       
-    fetch('http://localhost:8000/rest-auth/logout/', {
+    fetch(`${goturl}/rest-auth/logout/`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

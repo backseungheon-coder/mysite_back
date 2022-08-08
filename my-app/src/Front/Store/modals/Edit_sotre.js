@@ -4,6 +4,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import styled from 'styled-components'
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import {useSelector} from 'react-redux';
 
 const IconButton = styled.button`
 background: transparent;
@@ -35,7 +36,7 @@ export default function Edit_sotre(props) {
     const onChange3 = (event) => {setstore_add(event.target.value);}
     const onChange4 = (event) => {setstate(event.target.value);}
     const onChange5 = (event) => {setmemo(event.target.value);}
-    
+    const goturl = useSelector((state) => state);
     
 
     
@@ -44,7 +45,7 @@ export default function Edit_sotre(props) {
         <>
         <IconButton variant={'outline-danger'} onClick={()=>{
           axios
-          .post("http://127.0.0.1:8000/store/", {
+          .post(`${goturl}/store/`, {
                       mode:'get',
                       id:props.id,
 
@@ -130,7 +131,7 @@ export default function Edit_sotre(props) {
                         <Button variant="danger" 
                         onClick={() => {  
                             axios
-                                .delete(`http://127.0.0.1:8000/store_del/${props.id}`, {
+                                .delete(`${goturl}/store_del/${props.id}`, {
                                
                                         })
                                         .then(function (response) {
@@ -156,7 +157,7 @@ export default function Edit_sotre(props) {
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
                             axios
-                                .post("http://127.0.0.1:8000/store/", {
+                                .post(`${goturl}/store/`, {
                                             mode:'edit',
                                             id:props.id,
                                             store_name: store_name,

@@ -14,7 +14,7 @@ import styled from 'styled-components'
 import Pagination from './Pagination.js'
 import axios from 'axios';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-
+import {useSelector} from 'react-redux';
 
 
 const Button = styled.button`
@@ -35,10 +35,10 @@ const Button = styled.button`
 function Notice_list(props){
     
     const [rows, setrows] = useState([]);
-
+    const goturl = useSelector((state) => state);
 
     if(props.loaded === 'loaded'){
-      const url ="http://127.0.0.1:8000/notice/get";
+      const url =`${goturl}/notice/get`;
     axios({
         method: "GET",
         url: url,

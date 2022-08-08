@@ -4,7 +4,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import styled from "styled-components";
-
+import {useSelector} from 'react-redux';
 
 const Button_agency = styled.button`
 background: transparent;
@@ -35,7 +35,7 @@ function Agency_edit(props){
     const onChange4 = (event) => {setagency_tell(event.target.value);}
     const onChange5 = (event) => {setmanager_name(event.target.value);}
     const onChange6 = (event) => {setagency_email(event.target.value);}
-
+    const goturl = useSelector((state) => state);
     return(
         <>
         <FloatingLabel
@@ -105,7 +105,7 @@ export default function Memo_modal(props) {
     const [manager_name,setmanager_name] = useState('');
     const [agency_email,setagency_email] = useState('');
 
-
+    const goturl = useSelector((state) => state);
     const onChange1 = (event) => {setusername(event.target.value);}
     const onChange2 = (event) => {setpassword(event.target.value);}
     const onChange3 = (event) => {setagency_name(event.target.value);}
@@ -165,7 +165,7 @@ export default function Memo_modal(props) {
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
                             axios
-                            .post("http://127.0.0.1:8000/signup/", {
+                            .post(`${goturl}/signup/`, {
                                         mode:'post',
                                         username:username,
                                         password:password,

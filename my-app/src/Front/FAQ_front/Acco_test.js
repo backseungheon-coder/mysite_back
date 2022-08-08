@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './Acco.scss';
 import FAQ_modal_edit from './FAQ_modal_edit'
-
+import {useSelector} from 'react-redux';
 
 
 export default function SimpleAccordion(props) {

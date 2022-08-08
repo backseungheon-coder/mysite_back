@@ -55,7 +55,7 @@ function Login(props) {
                     props.setlogined('logged')
                 }
                 axios
-                    .post("https://api.nestatest.shop/agency/", {
+                    .post("https://api.nestatest.shop/manager/agency/", {
                                 mode:'get_log',
                                 username:inputId,
                             })

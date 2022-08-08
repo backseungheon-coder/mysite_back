@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
-
+import {useSelector} from 'react-redux';
 
 export default function Cal_modal(props) {
     const [show, setShow] = useState(false);
     const [title,setTitle] =useState('');
     const [sub,setSub] =useState('');
-
+    const goturl = useSelector((state) => state);
     
 
     return (
@@ -16,7 +16,7 @@ export default function Cal_modal(props) {
             <Button variant="primary" 
              onClick={()=>{
                 axios
-                .post("http://127.0.0.1:8000/Cal/", {
+                .post(`${goturl}/Cal/`, {
                             mode:'add_inner',
                             id:props.id,
                             title:props.title,

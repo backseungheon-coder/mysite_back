@@ -3,7 +3,7 @@ import { ToggleButton,Modal,FloatingLabel,Button,ButtonGroup,Form } from 'react-
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import styled from 'styled-components'
-
+import {useSelector} from 'react-redux';
 
 const Examine_button = styled.button`
 width:65px;
@@ -68,7 +68,7 @@ export default function Now_mdoal(props) {
         var bborder = ('none')
         var bcolor  = ('white')
     }
-
+    const goturl = useSelector((state) => state);
     const radios = [
       { name: '대기', value: '대기', vari:'outline-warning' },
       { name: '승인', value: '승인',vari:'outline-success' },
@@ -135,7 +135,7 @@ export default function Now_mdoal(props) {
                             <Button style={{marginLeft:2} } variant="primary" 
                             onClick={() => {  
                                 axios
-                                .post("http://127.0.0.1:8000/store/", {
+                                .post(`${goturl}/store/`, {
                                             mode:'now',
                                             id:props.id,
                                             now:radioValue,

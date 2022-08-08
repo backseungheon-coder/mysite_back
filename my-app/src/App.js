@@ -6,6 +6,8 @@ import Login from "./Login/Login.js"
 import storage from "redux-persist/lib/storage";
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import './App.css';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
     html, body, div, span, applet, object, iframe,
@@ -67,11 +69,27 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
+const url_admin = 'https://api.nestatest.shop/manager';
+const url_front = 'https://api.nestatest.shop/front';
+
+
+
+function rducer_admin(state = url_admin, action){
+  return state
+}
+
+function rducer_fornt(state = url_front, action){
+  return state
+}
+
+let store_admin = createStore(rducer_admin)
+let store_front = createStore(rducer_fornt)
+
 
 function App() {
   const [islogined,setlogined] = useState(window.localStorage.getItem('key'))
 
-  if (islogined == null){
+  if (islogined === null){
     
     return (
       // <Login/>
@@ -82,13 +100,16 @@ function App() {
   }
 
   else{
-    if (window.localStorage.getItem('level') == '0'){
+    if (window.localStorage.getItem('level') === '0'){
      
     return (
       // <Login/>
       
       <>
-         <Main backend={HTML5Backend}/>
+            <Provider store={store_admin}>
+              <Main backend={HTML5Backend}  />
+            </Provider>
+         
       </>
     );
     }
@@ -96,7 +117,11 @@ function App() {
     
       return (
         <>
-           <Main_front/>
+
+          <Provider store={store_front}>
+            <Main_front  />
+          </Provider>
+          
         </>
       );
 

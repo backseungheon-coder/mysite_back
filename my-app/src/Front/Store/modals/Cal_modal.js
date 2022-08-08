@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import styled from 'styled-components'
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
-
+import {useSelector} from 'react-redux';
 const Button_cal = styled.button`
 background: transparent;
 border:none;
@@ -17,9 +17,9 @@ export default function Cal_modal(props) {
     const handleClose = () => setShow(false);
     const [laoded, setLoaded] = useState(false);
     const handleShow = () => (setShow(true),setLoaded(true));
-
+    const goturl = useSelector((state) => state);
     if(laoded===true){
-        axios.post("http://127.0.0.1:8000/store/", {
+        axios.post(`${goturl}/store/`, {
                 mode:'cal_get',
                 id:props.id,
             })

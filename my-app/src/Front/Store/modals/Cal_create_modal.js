@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import './scss/Cal_c_modal.scss'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios';
-
+import {useSelector} from 'react-redux';
 const Button_Cal = styled.button`
 background: transparent;
 border:2px solid #0D99FF;
@@ -29,7 +29,7 @@ export default function Cal_modal(props) {
     const [loaded, setLoad] = useState('needload')
     const [inner_id,setId] = useState('')
     const [title_name, setName] = useState('')
-
+    const goturl = useSelector((state) => state);
 
     
     
@@ -38,7 +38,7 @@ export default function Cal_modal(props) {
 
         if (loaded=== 'needload'){
             
-        axios.get(`http://127.0.0.1:8000/Cal/`)
+        axios.get(`${goturl}/Cal/`)
         .then((response) => {
             setTList([...response.data])
             setLoad('loaded')
@@ -47,7 +47,7 @@ export default function Cal_modal(props) {
         }
         else if(loaded === 'inner_load'){
 
-            axios.post("http://127.0.0.1:8000/Cal/", {
+            axios.post(`${goturl}/Cal/`, {
                 mode:'load',
                 id:inner_id,
             })
@@ -114,7 +114,7 @@ export default function Cal_modal(props) {
                         <td>{event.created_date}</td>
                         <td><button
                         onClick={() =>(
-                            axios.post("http://127.0.0.1:8000/Cal/", {
+                            axios.post(`${goturl}/Cal/`, {
                                 mode:'checked',
                                 checked:props.checked,
                                 id:event.id

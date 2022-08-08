@@ -41,8 +41,7 @@ import openpyxl
 class Dash_Front_view(APIView):
 
     def post(self, request ):
-
-        user = get_object_or_404(User, pk=request.data)
+        user = get_object_or_404(User, pk=request.data.get('id'))
 
         group = (user.group_user)
 

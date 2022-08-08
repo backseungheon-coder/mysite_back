@@ -13,9 +13,10 @@ import Looks4Icon from '@mui/icons-material/Looks4';
 import Looks5Icon from '@mui/icons-material/Looks5';
 import Looks6Icon from '@mui/icons-material/Looks6';
 import TextField from '@mui/material/TextField';
+import {useSelector} from 'react-redux';
 
 function Store_list(props){
-    
+    const goturl = useSelector((state) => state);
     const [levels, setlevels] = useState([])
     const [groups, setGroup] = useState([])
     const [select, setselect] = useState('')
@@ -24,7 +25,7 @@ function Store_list(props){
 
     if(props.loadstate==='loaded' || props.change==='needchange'){
 
-        axios.get(`http://127.0.0.1:8000/agency_num/`)
+        axios.get(`${goturl}/agency_num/`)
         .then((response) => {
             props.setrows(response.data.userlist)
             setGroup(response.data.group)
@@ -100,7 +101,7 @@ function Store_list(props){
                     setselect(e.target.value)
 
                     axios
-                            .post("http://127.0.0.1:8000/agency/", {
+                            .post(`${goturl}/agency/`, {
                                         mode:'change_normal',
                                         id:event.id,
                                         state:e.target.value
@@ -143,8 +144,7 @@ function Btn(props){
     const [search_name,setsearch_name] =useState('')
     const [search_num,setsearch_num] =useState('')
     const [search_email,setsearch_email] =useState('')
-
-    
+    const goturl = useSelector((state) => state);
 
     const handleSelect = (e) => {
         setselect(e.target.value);
@@ -186,7 +186,7 @@ function Btn(props){
             <Button variant="success"
             onClick={()=>{
                 axios
-                .post("http://127.0.0.1:8000/search/", {
+                .post(`${goturl}/search/`, {
                     select:select,
                     search_name:search_name,
                     search_num:search_num,

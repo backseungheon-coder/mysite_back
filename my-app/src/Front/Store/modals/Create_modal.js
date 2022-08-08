@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FloatingLabel,Form } from 'react-bootstrap';
 import axios from 'axios';
-
+import {useSelector} from 'react-redux';
 
 
 
@@ -11,6 +11,7 @@ export default function ControlledTabs(props) {
     const [radioValue, setRadioValue] = useState('1');
     const [load,setLoad] = useState('needload');
     const [a_data, seta_data] = useState([]);
+    const goturl = useSelector((state) => state);
     const radios = [
       { name: '대기', value: '1', vari:'outline-warning' },
       { name: '승인', value: '2',vari:'outline-success' },
@@ -28,7 +29,7 @@ export default function ControlledTabs(props) {
 
 
     if(load === 'needload'){
-        axios.get(`http://127.0.0.1:8000/agency/`)
+        axios.get(`${goturl}/agency/`)
         .then((response) => {
         seta_data([...response.data])
         setLoad('laoded')
