@@ -6,11 +6,10 @@ import Edit_sotre from "./modals/Edit_sotre.js";
 import Memo_modal from "./modals/Memo_modal.js";
 import Fileup_modal from "./modals/Fileup_modal.js";
 // import Fileup_modal from "./modals/Fileup_test";
+import Cal_modal from "./modals/Cal_modal.js";
 import './Store.css';
 import Pagination from './Pagination.jsx'
 import Form from 'react-bootstrap/Form';
-import {useSelector} from 'react-redux';
-import Cal_modal from './modals/Cal_modal';
 
 function createData( check,NO,agency,  user_data, division, create_date, file_up, memo, now,cal,management) {
     return {  check,NO,agency,  user_data, division, create_date, file_up, memo, now,cal,management};
@@ -30,6 +29,7 @@ return(
 export default function Table_store(props) {
     
   const [loadstate, setloadstate] = useState('loaded');
+  const [rows, setrows] = useState([])
   const [allchecked, setAllchecked] = useState(false);
   const [allcheckedlist, setallcheckedlist] = useState([]);
   const [checkedInputs, setCheckedInputs] = useState([]);
@@ -38,13 +38,13 @@ export default function Table_store(props) {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const [totalcount, setTotalcount] = useState();
-  const goturl = useSelector((state) => state);
+  
 
   const allchaneHandler = () =>{
     setAllchecked(!allchecked)
     if (allchecked==false){
-      for (let i = 0; i < props.rows.length; i++){
-        allcheckedlist.push(props.rows[i].id)
+      for (let i = 0; i < rows.length; i++){
+        allcheckedlist.push(rows[i].id)
       }
       setCheckedInputs(allcheckedlist)
     }
@@ -64,20 +64,9 @@ export default function Table_store(props) {
   };
 
   if(loadstate==='loaded' || props.change==='needchange'){
-    const url =`${goturl}/store/`;
-        const formData = new FormData();
-        formData.append('mode', 'get_front');
-        formData.append('id', window.localStorage.getItem('id'));
-        axios({
-            method: "post",
-            url: url,
-            data: formData,
-            headers:{
-                "Content-Type":"application/json",
-                }
-        })
+    axios.get(`http://127.0.0.1:8000/store/`)
     .then((response) => {
-      props.setrows([...response.data])
+      setrows([...response.data])
       setloadstate('needload')
       props.setchange('changed')
       setTotalcount([...response.data].length)
@@ -107,20 +96,20 @@ export default function Table_store(props) {
             onChange={({ target: { value } }) => {
               setLimit(Number(value));
               setPage(1);
-              setTotalcount(props.rows.length);
+              setTotalcount(rows.length);
             }}
           >
             <option value="2">2</option>
             <option value="4">4</option>
             <option value="10">10</option>
             <option value="50">50</option>
-            <option value={props.rows.length}>All</option>
+            <option value={rows.length}>All</option>
           </Form.Select>
 
       </div>
       <div>
       <Pagination
-            total={props.rows.length}
+            total={rows.length}
             limit={limit}
             page={page}
             setPage={setPage}
@@ -130,6 +119,8 @@ export default function Table_store(props) {
       </div>
     </div>
 
+
+   
 
 
 
@@ -155,13 +146,13 @@ export default function Table_store(props) {
 
     <tbody style={{borderTop:'none'}}>
 
-    {props.rows.slice(offset, offset + limit).map((event,idx)=>(
+    {rows.slice(offset, offset + limit).map((event,idx)=>(
         <tr key={event.id}>       
             <th style={thst}><input type="checkbox" style={thst} id={event.id}   checked={checkedInputs.includes(event.id) ? true : false}
             onChange={(e)=>{
               changeHandler(e.currentTarget.checked, event.id)
             }}
-            
+
             /></th>
             <th style={thst}>{totalcount-(idx)}</th>
             <th style={thst}><div style={{fontWeight:'normal'}}>{event.agency_name}</div></th>
@@ -172,7 +163,7 @@ export default function Table_store(props) {
             <th style={thst}><Memo_modal setchange={props.setchange} memo={event.memo} id={event.id} val='memo'/></th>
             <th style={thst}><Now_modal now_memo={event.now_memo} now={event.now} setchange={props.setchange} id={event.id} val='now'/></th>
             <th style={thst}>
-            
+
               <div style={{paddingLeft:'20px',paddingRight:'20px',display: 'flex',justifyContent:'space-between'}}>
                 <div>
                   <div style={{fontSize:'12px',color:"#595c97"}}>{event.cal_name}</div>
@@ -180,7 +171,7 @@ export default function Table_store(props) {
                 </div>
                 <Cal_modal id={event.id} />
               </div>
-            
+
             </th>
             <th style={thst}><Edit_sotre store_name={event.store_name} store_tell={event.store_tell} store_add={event.store_add} state={event.state} memo={event.memo} setchange={props.setchange} id={event.id} val='management'/></th>
         </tr>

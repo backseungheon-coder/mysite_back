@@ -1,0 +1,736 @@
+[33mcommit c99389459ee733e7676eb0aba7949e66bd0e77b9[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: 백승헌 <bsh7829@gmail.com>
+Date:   Mon Aug 8 10:07:44 2022 +0900
+
+    ck-editor-ver-change
+
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mdeleted file mode 100644[m
+[1mindex 4d29575de..000000000[m
+[1m--- a/.gitignore[m
+[1m+++ /dev/null[m
+[36m@@ -1,23 +0,0 @@[m
+[31m-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.[m
+[31m-[m
+[31m-# dependencies[m
+[31m-/node_modules[m
+[31m-/.pnp[m
+[31m-.pnp.js[m
+[31m-[m
+[31m-# testing[m
+[31m-/coverage[m
+[31m-[m
+[31m-# production[m
+[31m-/build[m
+[31m-[m
+[31m-# misc[m
+[31m-.DS_Store[m
+[31m-.env.local[m
+[31m-.env.development.local[m
+[31m-.env.test.local[m
+[31m-.env.production.local[m
+[31m-[m
+[31m-npm-debug.log*[m
+[31m-yarn-debug.log*[m
+[31m-yarn-error.log*[m
+[1mdiff --git a/node_modules/.bin/acorn b/node_modules/.bin/acorn[m
+[1mnew file mode 100644[m
+[1mindex 000000000..9223ef85b[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/acorn[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../@ckeditor/ckeditor5-dev-utils/node_modules/acorn/bin/acorn" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../@ckeditor/ckeditor5-dev-utils/node_modules/acorn/bin/acorn" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/acorn.cmd b/node_modules/.bin/acorn.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..7ad9bde0c[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/acorn.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\@ckeditor\ckeditor5-dev-utils\node_modules\acorn\bin\acorn" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\@ckeditor\ckeditor5-dev-utils\node_modules\acorn\bin\acorn" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/ansi-html b/node_modules/.bin/ansi-html[m
+[1mnew file mode 100644[m
+[1mindex 000000000..c63bd0c57[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/ansi-html[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../ansi-html-community/bin/ansi-html" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../ansi-html-community/bin/ansi-html" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/ansi-html.cmd b/node_modules/.bin/ansi-html.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..54495153c[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/ansi-html.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\ansi-html-community\bin\ansi-html" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\ansi-html-community\bin\ansi-html" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/atob b/node_modules/.bin/atob[m
+[1mnew file mode 100644[m
+[1mindex 000000000..508967941[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/atob[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../atob/bin/atob.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../atob/bin/atob.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/atob.cmd b/node_modules/.bin/atob.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..34edc9aa7[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/atob.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\atob\bin\atob.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\atob\bin\atob.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/autoprefixer b/node_modules/.bin/autoprefixer[m
+[1mnew file mode 100644[m
+[1mindex 000000000..3d8838cb1[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/autoprefixer[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../autoprefixer/bin/autoprefixer" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../autoprefixer/bin/autoprefixer" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/autoprefixer.cmd b/node_modules/.bin/autoprefixer.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..75bb40625[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/autoprefixer.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\autoprefixer\bin\autoprefixer" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\autoprefixer\bin\autoprefixer" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/browserslist b/node_modules/.bin/browserslist[m
+[1mnew file mode 100644[m
+[1mindex 000000000..1df3f2a4e[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/browserslist[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../browserslist/cli.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../browserslist/cli.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/browserslist-lint b/node_modules/.bin/browserslist-lint[m
+[1mnew file mode 100644[m
+[1mindex 000000000..abcf44902[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/browserslist-lint[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../update-browserslist-db/cli.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../update-browserslist-db/cli.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/browserslist-lint.cmd b/node_modules/.bin/browserslist-lint.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..ea181fbba[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/browserslist-lint.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\update-browserslist-db\cli.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\update-browserslist-db\cli.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/browserslist.cmd b/node_modules/.bin/browserslist.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..e4006d727[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/browserslist.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\browserslist\cli.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\browserslist\cli.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/css-blank-pseudo b/node_modules/.bin/css-blank-pseudo[m
+[1mnew file mode 100644[m
+[1mindex 000000000..a042ef9fd[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/css-blank-pseudo[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../css-blank-pseudo/dist/cli.cjs" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../css-blank-pseudo/dist/cli.cjs" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/css-blank-pseudo.cmd b/node_modules/.bin/css-blank-pseudo.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..e354276d7[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/css-blank-pseudo.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\css-blank-pseudo\dist\cli.cjs" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\css-blank-pseudo\dist\cli.cjs" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/css-has-pseudo b/node_modules/.bin/css-has-pseudo[m
+[1mnew file mode 100644[m
+[1mindex 000000000..98d7847bc[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/css-has-pseudo[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../css-has-pseudo/dist/cli.cjs" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../css-has-pseudo/dist/cli.cjs" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/css-has-pseudo.cmd b/node_modules/.bin/css-has-pseudo.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..8af78cdeb[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/css-has-pseudo.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\css-has-pseudo\dist\cli.cjs" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\css-has-pseudo\dist\cli.cjs" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/css-prefers-color-scheme b/node_modules/.bin/css-prefers-color-scheme[m
+[1mnew file mode 100644[m
+[1mindex 000000000..d688b4b37[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/css-prefers-color-scheme[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../css-prefers-color-scheme/dist/cli.cjs" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../css-prefers-color-scheme/dist/cli.cjs" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/css-prefers-color-scheme.cmd b/node_modules/.bin/css-prefers-color-scheme.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..a869dfc83[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/css-prefers-color-scheme.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\css-prefers-color-scheme\dist\cli.cjs" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\css-prefers-color-scheme\dist\cli.cjs" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/cssesc b/node_modules/.bin/cssesc[m
+[1mnew file mode 100644[m
+[1mindex 000000000..d26a79a5c[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/cssesc[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../cssesc/bin/cssesc" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../cssesc/bin/cssesc" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/cssesc.cmd b/node_modules/.bin/cssesc.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..fe4c1cea4[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/cssesc.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\cssesc\bin\cssesc" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\cssesc\bin\cssesc" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/detect b/node_modules/.bin/detect[m
+[1mnew file mode 100644[m
+[1mindex 000000000..8c5e78396[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detect[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../detect-port-alt/bin/detect-port" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../detect-port-alt/bin/detect-port" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/detect-port b/node_modules/.bin/detect-port[m
+[1mnew file mode 100644[m
+[1mindex 000000000..8c5e78396[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detect-port[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../detect-port-alt/bin/detect-port" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../detect-port-alt/bin/detect-port" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/detect-port.cmd b/node_modules/.bin/detect-port.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..be0cf0b33[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detect-port.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\detect-port-alt\bin\detect-port" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\detect-port-alt\bin\detect-port" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/detect.cmd b/node_modules/.bin/detect.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..be0cf0b33[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detect.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\detect-port-alt\bin\detect-port" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\detect-port-alt\bin\detect-port" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/detective b/node_modules/.bin/detective[m
+[1mnew file mode 100644[m
+[1mindex 000000000..e44dec195[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detective[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../detective/bin/detective.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../detective/bin/detective.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/detective.cmd b/node_modules/.bin/detective.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..84a92516b[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/detective.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\detective\bin\detective.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\detective\bin\detective.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/ejs b/node_modules/.bin/ejs[m
+[1mnew file mode 100644[m
+[1mindex 000000000..692d155b1[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/ejs[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../ejs/bin/cli.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../ejs/bin/cli.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/ejs.cmd b/node_modules/.bin/ejs.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..4028f206d[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/ejs.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\ejs\bin\cli.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\ejs\bin\cli.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/escodegen b/node_modules/.bin/escodegen[m
+[1mnew file mode 100644[m
+[1mindex 000000000..4e46a4899[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/escodegen[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../escodegen/bin/escodegen.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../escodegen/bin/escodegen.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/escodegen.cmd b/node_modules/.bin/escodegen.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..8ffe39387[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/escodegen.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\escodegen\bin\escodegen.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\escodegen\bin\escodegen.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/esgenerate b/node_modules/.bin/esgenerate[m
+[1mnew file mode 100644[m
+[1mindex 000000000..5d097c360[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/esgenerate[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../escodegen/bin/esgenerate.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../escodegen/bin/esgenerate.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/esgenerate.cmd b/node_modules/.bin/esgenerate.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..39593ad6f[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/esgenerate.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\escodegen\bin\esgenerate.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\escodegen\bin\esgenerate.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/eslint b/node_modules/.bin/eslint[m
+[1mnew file mode 100644[m
+[1mindex 000000000..9f3ac3149[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/eslint[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../eslint/bin/eslint.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../eslint/bin/eslint.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/eslint.cmd b/node_modules/.bin/eslint.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..009a9ae4b[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/eslint.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\eslint\bin\eslint.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\eslint\bin\eslint.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/esparse b/node_modules/.bin/esparse[m
+[1mnew file mode 100644[m
+[1mindex 000000000..252552713[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/esparse[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../esprima/bin/esparse.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../esprima/bin/esparse.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/esparse.cmd b/node_modules/.bin/esparse.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..064f58e34[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/esparse.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\esprima\bin\esparse.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\esprima\bin\esparse.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/esvalidate b/node_modules/.bin/esvalidate[m
+[1mnew file mode 100644[m
+[1mindex 000000000..2137cd5cc[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/esvalidate[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../esprima/bin/esvalidate.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../esprima/bin/esvalidate.js" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/esvalidate.cmd b/node_modules/.bin/esvalidate.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..8dfaec089[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/esvalidate.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\esprima\bin\esvalidate.js" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\esprima\bin\esvalidate.js" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/he b/node_modules/.bin/he[m
+[1mnew file mode 100644[m
+[1mindex 000000000..e3e6a0a83[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/he[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32mbasedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")[m
+[32m+[m
+[32m+[m[32mcase `uname` in[m
+[32m+[m[32m    *CYGWIN*) basedir=`cygpath -w "$basedir"`;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -x "$basedir/node" ]; then[m
+[32m+[m[32m  "$basedir/node"  "$basedir/../he/bin/he" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32melse[m[41m [m
+[32m+[m[32m  node  "$basedir/../he/bin/he" "$@"[m
+[32m+[m[32m  ret=$?[m
+[32m+[m[32mfi[m
+[32m+[m[32mexit $ret[m
+[1mdiff --git a/node_modules/.bin/he.cmd b/node_modules/.bin/he.cmd[m
+[1mnew file mode 100644[m
+[1mindex 000000000..1630c8ee9[m
+[1m--- /dev/null[m
+[1m+++ b/node_modules/.bin/he.cmd[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m@IF EXIST "%~dp0\node.exe" ([m
+[32m+[m[32m  "%~dp0\node.exe"  "%~dp0\..\he\bin\he" %*[m
+[32m+[m[32m) ELSE ([m
+[32m+[m[32m  @SETLOCAL[m
+[32m+[m[32m  @SET PATHEXT=%PATHEXT:;.JS;=;%[m
+[32m+[m[32m  node  "%~dp0\..\he\bin\he" %*[m
+[32m+[m[32m)[m
+\ No newline at end of file[m
+[1mdiff --git a/node_modules/.bin/html-minifier-terser b/node_modules/.b

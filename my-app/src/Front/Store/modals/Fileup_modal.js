@@ -14,7 +14,7 @@ import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import './scss/Drag.scss'
 import ImageList from '@mui/material/ImageList';
 
-import {useSelector} from 'react-redux';
+
 
 const IconButton = styled.button`
 // background: transparent;
@@ -33,7 +33,6 @@ height:40px;
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 export default function Fileup_modal(props) {
-    const goturl = useSelector((state) => state);
     const [img_list,setImgList] = useState([])
     const [id_list,setidList] = useState([])
 
@@ -74,7 +73,7 @@ export default function Fileup_modal(props) {
 
 
     const loadModule = async (e) => {
-        const url =`${goturl}/fileread/`;
+        const url ="http://127.0.0.1:8000/fileread/";
         const formData = new FormData();
         formData.append("mode",'load')
         formData.append("id",props.id)
@@ -87,8 +86,7 @@ export default function Fileup_modal(props) {
                 "Content-Type":"application/json",
                 }
         }).then(function(response){
-            // var url_local = `${goturl}`;
-            var url_local = 'http://127.0.0.1:8000';
+            var url_local = "http://127.0.0.1:8000";
             var list = [];
             var id_set_list =[];
             for(var i=0;i<response.data.length;i++){
@@ -114,7 +112,7 @@ export default function Fileup_modal(props) {
     const doundloadModule = async (e) =>{
         e.preventDefault();
 
-        const url =`${goturl}/download/`
+        const url ="http://127.0.0.1:8000/download/"
         const formData = new FormData();
         formData.append("mode",'down')
         formData.append("id",props.id)
@@ -126,8 +124,7 @@ export default function Fileup_modal(props) {
                 "Content-Type":"application/json",
             }
         }).then(function (response){
-            // var url_local = `${goturl}`
-            var url_local = 'http://127.0.0.1:8000';
+            var url_local = "http://127.0.0.1:8000"
             var media = response.data
             var donw = url_local+media
             fetch(donw)
@@ -136,9 +133,7 @@ export default function Fileup_modal(props) {
                 fileDownload(blob, 'output.zip');
             })
             .then(function(e){
-                const del_url =`${goturl}/download/`;
-
-                
+                const del_url ="http://127.0.0.1:8000/download/";
                 const del_formData = new FormData();
                 del_formData.append("mode",'del')
                 axios({
@@ -173,7 +168,7 @@ export default function Fileup_modal(props) {
             formData.append("counter",i)
             formData.append("id",props.id)
     
-            const url =`${goturl}/upload/`
+            const url ="http://127.0.0.1:8000/upload/"
     
             axios({
                 method: "POST",

@@ -33,7 +33,7 @@ const Button = styled.button`
 `
 
 function Notice_list(props){
-
+    
     const [rows, setrows] = useState([]);
     const goturl = useSelector((state) => state);
 

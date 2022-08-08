@@ -13,10 +13,9 @@ import Looks4Icon from '@mui/icons-material/Looks4';
 import Looks5Icon from '@mui/icons-material/Looks5';
 import Looks6Icon from '@mui/icons-material/Looks6';
 import TextField from '@mui/material/TextField';
-import {useSelector} from 'react-redux'
 
 function Store_list(props){
-    const goturl = useSelector((state) => state);
+    
     const [levels, setlevels] = useState([])
     const [groups, setGroup] = useState([])
     const [select, setselect] = useState('')
@@ -25,9 +24,7 @@ function Store_list(props){
 
     if(props.loadstate==='loaded' || props.change==='needchange'){
 
-        axios.post(`${goturl}/agency_num/`,{
-            'id' : window.localStorage.getItem('id'),
-        })
+        axios.get(`http://127.0.0.1:8000/agency_num/`)
         .then((response) => {
             props.setrows(response.data.userlist)
             setGroup(response.data.group)
@@ -72,7 +69,6 @@ function Store_list(props){
                 return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks6Icon/></>)
             }
     }
-    
 
     return(
     <Table  bordered hover>
@@ -104,7 +100,7 @@ function Store_list(props){
                     setselect(e.target.value)
 
                     axios
-                            .post(`${goturl}/agency/`, {
+                            .post("http://127.0.0.1:8000/agency/", {
                                         mode:'change_normal',
                                         id:event.id,
                                         state:e.target.value
@@ -148,7 +144,7 @@ function Btn(props){
     const [search_num,setsearch_num] =useState('')
     const [search_email,setsearch_email] =useState('')
 
-    const goturl = useSelector((state) => state);
+    
 
     const handleSelect = (e) => {
         setselect(e.target.value);
@@ -178,8 +174,7 @@ function Btn(props){
             <TextField  label="이름" size="small" variant="outlined" onChange={handlename} />
             <TextField  label="전화번호" size="small" variant="outlined" onChange={handelnum}/>
             <TextField  label="이메일" size="small" variant="outlined" onChange={handelemail}/>
-            
-            
+
             <Button variant="primary"
             
             onClick={()=>{
@@ -191,13 +186,11 @@ function Btn(props){
             <Button variant="success"
             onClick={()=>{
                 axios
-                .post(`${goturl}/search/`, {
-                    id : window.localStorage.getItem('id'),
+                .post("http://127.0.0.1:8000/search/", {
                     select:select,
                     search_name:search_name,
                     search_num:search_num,
                     search_email:search_email,
-                          
 
                         })
                         .then(function (response) {

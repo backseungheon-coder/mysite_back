@@ -11,7 +11,7 @@ import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import axios from 'axios';
 import Cal_modal from './Cal_modal.js';
 import Cal_plus from './Cal_plus.js';
-import {useSelector} from 'react-redux';
+
 
 
 interface propTypes{
@@ -203,14 +203,14 @@ function Container_changer(props:propsinner){
     const [sub,setSub] =useState<string>('');
 
     
-    const goturl = useSelector((state) => state);
+
     const [title_edit,editTitle] =useState<string>('');
     const [sub_edit,editSub] =useState<string>('');
     const [id_delete, editDelete] =useState<any>('');
 
 
     if (loaded==='needload'){
-        axios.post(`${goturl}/Cal/`, {
+        axios.post("http://127.0.0.1:8000/Cal/", {
             mode:'load',
             id:props.id,
         })
@@ -291,7 +291,7 @@ function Container_changer(props:propsinner){
                         <Button variant="danger" style={{margin:5}} 
                         onClick={()=>{
                             axios
-                            .post(`${goturl}/Cal/`, {
+                            .post("http://127.0.0.1:8000/Cal/", {
                                         mode:'inner_delete',
                                         id:id_delete,
 
@@ -314,7 +314,7 @@ function Container_changer(props:propsinner){
                         
                         onClick={()=>{
                             axios
-                            .post(`${goturl}/Cal/`, {
+                            .post("http://127.0.0.1:8000/Cal/", {
                                         mode:'inner_edit',
                                         id:id_delete,
                                         title_edit:title_edit,
@@ -396,10 +396,10 @@ function Full_table(props:propsFull){
     const [title_edit,editTitle] =useState<string>('');
     const [sub_edit,editSub] =useState<string>('');
     const [id_delete, editDelete] =useState<any>('');
-    const goturl = useSelector((state) => state);
+
     
     if (loaded==='needload'){
-        axios.post(`${goturl}/Cal/`, {
+        axios.post("http://127.0.0.1:8000/Cal/", {
             mode:'load',
             id:props.datarr[Number(props.Id_full)].id,
         })
@@ -534,13 +534,13 @@ function Matin_table(porps:propTypes){
     // const ExampleCustomInput = ({ value, onClick }) => (
     //     <Button variant="outline-secondary"className="example-custom-input" style={{margin:0,width:130}} onClick={onClick}>{value}</Button>
     // );      
-    const goturl = useSelector((state) => state);
+
     const onIncrease = () => setCount(count + 1);
 
     var array = []
 
     if (loaded==='needload'){
-        axios.get(`${goturl}/Cal/`)
+        axios.get(`http://127.0.0.1:8000/Cal/`)
         .then((response) => {
         setDatarr([...response.data])
         setCount([...response.data].length/2)

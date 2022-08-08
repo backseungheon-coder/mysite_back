@@ -1,11 +1,11 @@
-import ClassicEditor from "@ckeditor/ckeditor5-34.1.0-stl0r2rdr5hi";
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { Component,useState } from 'react';
 import './Notice.scss'
 
 export default function Notice_wigi(props) {
     
-
+    
       return (
           <div className="App" >
               <CKEditor

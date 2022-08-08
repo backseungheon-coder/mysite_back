@@ -5,22 +5,20 @@ import { Form,InputGroup } from 'react-bootstrap';
 import Checkbox from '@mui/material/Checkbox';
 import Acco_test from './Acco_test.js';
 import SearchIcon from '@mui/icons-material/Search';
-
+import FAQ_create_modal from './FAQ_create_modal.js';
 import axios from 'axios';
-import {useSelector} from 'react-redux';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
 function Matin_table(props){
-    const goturl = useSelector((state) => state);
     const [loadstate, setloadstate] = useState('loaded');
     const [row, setrows] = useState([])
 
     if(loadstate==='loaded'){
 
 
-            axios.get(`${goturl}/FAQ`)
+            axios.get(`http://127.0.0.1:8000/FAQ`)
             .then((response) => {
                 setrows([...response.data])
                 setloadstate('needload') 
@@ -46,7 +44,7 @@ function Matin_table(props){
                     </InputGroup>
                     
             </div>
-            <div style={{backgroundColor:'#fff',display:'flex',justifyContent: 'center',height:'40px'}}><div style={{width:'40%',display: 'flex',justifyContent:'flex-end'}}></div></div>
+            <div style={{backgroundColor:'#fff',display:'flex',justifyContent: 'center',height:'40px'}}><div style={{width:'40%',display: 'flex',justifyContent:'flex-end'}}><FAQ_create_modal setloadstate={setloadstate}/></div></div>
             <div style={{display: 'flex',justifyContent: 'center'}}>
                 <div style={{width:'40%',marginTop:'30px',marginBottom:'30px'}}>
         

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import styled from "styled-components";
-import {useSelector} from 'react-redux';
+
 
 const Button_agency = styled.button`
 background: transparent;
@@ -86,6 +86,8 @@ function Agency_edit(props){
                 <option value="정지">정지</option>
         </Form.Select>
         
+
+
         </>
     );
 }
@@ -110,7 +112,7 @@ export default function Memo_modal(props) {
     const onChange4 = (event) => {setagency_tell(event.target.value);}
     const onChange5 = (event) => {setmanager_name(event.target.value);}
     const onChange6 = (event) => {setagency_email(event.target.value);}
-    const goturl = useSelector((state) => state);
+
 
 
   
@@ -133,6 +135,7 @@ export default function Memo_modal(props) {
             <Modal.Body>
             
             <>
+
                 <TextField fullWidth  className="mb-3" label="대리점ID" value={username} onChange={onChange1} variant="outlined" />
                 <div style={{marginBottom:'15px'}}></div>
                 <TextField fullWidth  label="Password" className="mb-3" type="password" onChange={onChange2} autoComplete="current-password" />
@@ -145,11 +148,15 @@ export default function Memo_modal(props) {
                 <div style={{marginBottom:'15px'}}></div>
                 <TextField fullWidth className="mb-3" label="이메일" value={agency_email} onChange={onChange6} variant="outlined" />                
 
+
                 </>
+
                 </Modal.Body>
             <Modal.Footer>
             <Box  style={{width:'100%'} }>
                     
+
+    
                     <Box style={{float:'right'} }>
                         <Button variant="secondary"  onClick={handleClose}>
                         취소
@@ -158,7 +165,7 @@ export default function Memo_modal(props) {
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
                             axios
-                            .post(`${goturl}/signup/`, {
+                            .post("http://127.0.0.1:8000/signup/", {
                                         mode:'post',
                                         username:username,
                                         password:password,
@@ -189,6 +196,7 @@ export default function Memo_modal(props) {
                         </Button>
                     </Box>
                 </Box>
+
                 
             </Modal.Footer>
         </Modal>

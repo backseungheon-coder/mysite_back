@@ -9,7 +9,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 import Dash_Notice from './Dash_Notice.js'
-import {useSelector} from 'react-redux';
+
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -77,7 +77,7 @@ const Top_Box_inner = styled.div`
     border-radius:10px;
     height: 46%;
     width: 100%;
-    background-color:white;
+    background-color:#FFF7CD;
     display:flex;
     align-items:center;
     justify-content: space-around;
@@ -90,7 +90,7 @@ const Inner_circle = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-    background-image: linear-gradient(135deg, #0D99FF 0%, #466FFF 100%);
+    background-image: linear-gradient(135deg, rgba(16, 57, 150, 0) 0%, rgba(16, 57, 150, 0.24) 100%);
 `
 
 const Inner_circle_small = styled.div`
@@ -100,22 +100,21 @@ const Inner_circle_small = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-    background-image: linear-gradient(135deg, #0D99FF 0%, #466FFF 100%);
+    background-image: linear-gradient(135deg, rgba(183, 129, 3, 0) 0%, rgba(183, 129, 3, 0.24) 100%);
 `
 
 function Matin_table(props){
     const [loadstate, setloadstate] = useState('needload');
     const [row, setrows] = useState([]);
     const [data,setdata] = useState([]);
-    const goturl = useSelector((state) => state);
-    
     if(loadstate ==='needload'){
-        const url =`${goturl}/dash/`;
+        const url ="http://127.0.0.1:8000/dash/";
         const formData = new FormData();
+
         axios({
-            method: "post",
+            method: "GET",
             url: url,
-            data: window.localStorage.getItem('id'),
+            data: formData,
             headers:{
                 "Content-Type":"application/json",
                 }
@@ -124,44 +123,52 @@ function Matin_table(props){
             setloadstate('loaded');
             setdata(response.data.list);
         })
-        
+           
     }
 
 
     return(
         <Container_styled>
             <Inner_top_Box>
-                <Grid_Box>
+                <Grid_Box style={{background:'#D1E9FC'}}>
                     <Inner_circle>
-                    <div style={{fontWeight:'bold',fontSize:'40px',color:'white'}}>{row.d_agency}</div>
+                        <AddBusinessIcon sx={{fontSize:'50px'}} />
                     </Inner_circle>
-                    <div style={{fontSize:'24px',color:'black',marginTop:'14px'}}>오늘 실적 수</div>
+                    <div style={{marginTop:'10px',fontWeight:'bold',fontSize:'30px',color:'#061B64'}}>{row.store}</div>
+                    <div style={{fontSize:'12.6px',color:'#061B64'}}>그룹 가맹점 수</div>
                 </Grid_Box>
-                <Grid_Box>
-                <Inner_circle>
-                    <div style={{fontWeight:'bold',fontSize:'40px',color:'white'}}>{row.m_agency}</div>
-                </Inner_circle>
-                <div style={{fontSize:'24px',color:'black',marginTop:'14px'}}>이번달 실적 수</div>
+                <Grid_Box  style={{background:'#D0F2FF'}}>
+                <Inner_circle style={{backgroundImage:'linear-gradient(135deg, rgba(12, 83, 183, 0) 0%, rgba(12, 83, 183, 0.24) 100%)'}}>
+                    <GroupsIcon sx={{fontSize:'50px'}} />
+                    </Inner_circle>
+                    <div style={{marginTop:'10px',fontWeight:'bold',fontSize:'30px',color:'#04297A'}}>{row.agency}</div>
+                    <div style={{fontSize:'12.6px',color:'#04297A'}}>그룹 대리점 수</div>
                 </Grid_Box>
 
                 <Top_Box_con>
                     <Top_Box_inner>
                         <Inner_circle_small>
-                        <div style={{fontWeight:'bold',fontSize:'40px',color:'white'}}>{row.store}</div>
+                            <ContentPasteGoIcon sx={{fontSize:'40px'}}/>
                         </Inner_circle_small>
                         <div style={{display:'flex', flexDirection:'column',alignItems: 'center'}}>
-                            <div style={{fontSize:'18px',color:'black'}}>
-                                    그룹 가맹점 수
+                            <div style={{fontSize:'40px',fontWeight:'bold',color:'#7A4F01'}}>
+                                    {row.d_agency}
+                            </div>
+                            <div style={{fontSize:'12.6px',color:'#7A4F01'}}>
+                                    오늘 실적 수
                             </div>
                         </div>
                     </Top_Box_inner>
-                    <Top_Box_inner>
-                        <Inner_circle_small >
-                            <div style={{fontSize:'40px',fontWeight:'bold',color:'white'}}>{row.agency}</div>
+                    <Top_Box_inner style={{background:'#FFE7D9'}}>
+                        <Inner_circle_small style={{backgroundImage:'linear-gradient(135deg, rgba(183, 33, 54, 0) 0%, rgba(183, 33, 54, 0.24) 100%)'}}>
+                            <ContentPasteGoIcon sx={{fontSize:'40px'}}/>
                         </Inner_circle_small>
                         <div style={{display:'flex', flexDirection:'column',alignItems: 'center'}}>
-                            <div style={{fontSize:'18px',color:'black'}}>
-                                    그룹 대리점 수
+                            <div style={{fontSize:'40px',fontWeight:'bold',color:'#7A0C2E'}}>
+                                    {row.m_agency}
+                            </div>
+                            <div style={{fontSize:'12.6px',color:'#7A0C2E'}}>
+                                    이번달 실적 수
                             </div>
                         </div>
                     </Top_Box_inner>

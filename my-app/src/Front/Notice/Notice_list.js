@@ -14,7 +14,7 @@ import styled from 'styled-components'
 import Pagination from './Pagination.js'
 import axios from 'axios';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import {useSelector} from 'react-redux';
+
 
 
 const Button = styled.button`
@@ -35,10 +35,10 @@ const Button = styled.button`
 function Notice_list(props){
     
     const [rows, setrows] = useState([]);
-    const goturl = useSelector((state) => state);
+
 
     if(props.loaded === 'loaded'){
-      const url =`${goturl}/notice/get`;
+      const url ="http://127.0.0.1:8000/notice/get";
     axios({
         method: "GET",
         url: url,
@@ -147,6 +147,7 @@ function Notice_list(props){
             </Table>
             <div style={{width:'100%',display:'flex',flexDirection:'column',alignItems: 'center'}}>
                 <div style={{display:'flex',justifyContent: 'flex-end',width:'60%',borderTop:'1px solid #D1D1D1'}}>
+                    <Button onClick={()=>{props.setdisplay('create')} }>글쓰기</Button>
                 </div>
             </div>
         </div>
@@ -211,7 +212,7 @@ export default function BasicTabs(props) {
                 aria-describedby="basic-addon2"
                 style={{borderLeft: '1px solid #D1D1D1',borderRadius:'50px 0px 0px 50px',height:'30px'}}
                 />
-                <button style={{backgroundColor:'white',border:'1px solid #D1D1D1',borderRadius:'0px 50px 50px 0px',height:'30px',width:'10%'}}><SearchIcon sx={{color:'#A9A9A9'}}/></button>
+                <InputGroup.Text style={{backgroundColor:'white',border:'1px solid #D1D1D1',borderRadius:'0px 50px 50px 0px',height:'30px'}}><SearchIcon sx={{color:'#A9A9A9'}}/></InputGroup.Text>
             </InputGroup>
 
         </Box>

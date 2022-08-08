@@ -8,12 +8,11 @@ import { Modal,Button,Form } from 'react-bootstrap';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './css/Drag.scss'
-import {useSelector} from 'react-redux';
 
 export default function StandardImageList() {
 
 
-  const goturl = useSelector((state) => state);
+  
 
   return (
     <ImageList sx={{ width: '100%', height: '100%' }} cols={4} rowHeight={148}

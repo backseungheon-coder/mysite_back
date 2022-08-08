@@ -11,6 +11,7 @@ import {
   }from "react-router-dom";
 import Store from "./Store/Store"
 import Agency from "./Agency/Agency"
+import Cal from "./Cal/Cal"
 import Notice from "./Notice/Notice"
 import FAQ from "./FAQ_front/FAQ"
 import Box from '@mui/material/Box';
@@ -20,12 +21,7 @@ import Toolbar from '@mui/material/Toolbar';
 import './navsytle.scss'
 import Dash from './Dash/Dash.js';
 
-
 function Main(props) {
-
-
-
-
 
     return (
       <>
@@ -36,7 +32,7 @@ function Main(props) {
         <Toolbar variant="dense" id='toolbar' >
           <div id="barcon">
             <div id="logo_box">
-              <NavLink exact="true" to="/dash">
+              <NavLink exact="true" to="/">
                 <Typography variant="h6" color="black" component="div">
                 <img src={ require('../img/logo.png') }  width='70'height='50'/>
                 </Typography>
@@ -53,8 +49,6 @@ function Main(props) {
                 <NavLink exact="true" to="/agency" style={({ isActive }) => ({ backgroundColor:'#ffffff',color:'black',borderBottom: isActive ? '4px solid black' : '4px solid #0D99FF',fontWeight: isActive ? 'bold' : ''})}>
                     대리점관리
                   </NavLink>
-
-
 
                   <NavLink exact="true" to="/notice" style={({ isActive }) => ({ backgroundColor:'#ffffff',color:'black',borderBottom: isActive ? '4px solid black' : '4px solid #0D99FF',fontWeight: isActive ? 'bold' : ''})}>         
                       공지사항
@@ -82,7 +76,7 @@ function Main(props) {
     <Containerr root='false' maxWidth='false' sx={{flex:'10',width:'100%',margin:'0px',padding:'0px !important' }} >
       
       <Routes >
-      <Route  exact="true" path="/dash" element={<Dash />} />
+      <Route  exact="true" path="/" element={<Dash />} />
         <Route  exact="true" path="/store" element={<Store />} />
         <Route  exact="true" path="/agency"  element={<Agency />}/>
         <Route  exact="true" path="/notice" element={<Notice/>} />
@@ -96,7 +90,7 @@ function Main(props) {
         <hr></hr>
         <div className="text-center p-3" >
         Copyright ©2021 네스타
-        테스트용 메시지: 프론트 계정으로 로그인 되었습니다.
+        테스트용 메시지: 어드민 계정으로 로그인 되었습니다.
         </div>
       </footer>
     </div>

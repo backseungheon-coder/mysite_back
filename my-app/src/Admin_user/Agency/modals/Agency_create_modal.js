@@ -86,6 +86,8 @@ function Agency_edit(props){
                 <option value="정지">정지</option>
         </Form.Select>
         
+
+
         </>
     );
 }
@@ -189,6 +191,7 @@ export default function Memo_modal(props) {
                         </Button>
                     </Box>
                 </Box>
+
                 
             </Modal.Footer>
         </Modal>

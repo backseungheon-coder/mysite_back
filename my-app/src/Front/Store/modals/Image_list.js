@@ -5,7 +5,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import Full_view from './Full_view.js'
 import axios from 'axios';
-import {useSelector} from 'react-redux';
 
 const Box = styled.div`
   height:100%;
@@ -54,7 +53,6 @@ export default function StandardImageList(props) {
     const [isListHover, setIsListHover] = useState(false);
     const [mode,setMode]= useState('normal');
     const [startindex,setStartindex]= useState();
-    const goturl = useSelector((state) => state);
     if (mode === 'full') {
         var element = (
             <Full_view img_list={props.img_list} setMode={setMode} startindex={startindex}/>
@@ -84,7 +82,7 @@ export default function StandardImageList(props) {
         
                     <Button onClick={() => {
                       
-                        const url =`${goturl}/img_del/`
+                        const url ="http://127.0.0.1:8000/img_del/"
                         const formData = new FormData();
                         formData.append("id",props.id_list[idx])
                         axios({

@@ -4,7 +4,6 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import styled from 'styled-components'
-import {useSelector} from 'react-redux';
 
 const Button = styled.button`
 background: #FE2222;
@@ -65,14 +64,14 @@ export default function Agency_eidt_modal(props) {
     const [agency_tell,setagency_tell] = useState('');
     const [manager_name,setmanager_name] = useState('');
     const [agency_email,setagency_email] = useState('');
-    const goturl = useSelector((state) => state);
+
 
     return (
         <>
 
         <Button variant='danger' onClick={()=>{
             axios
-            .post(`${goturl}/agency/`, {
+            .post("http://127.0.0.1:8000/agency/", {
                         mode:'get',
                         id:props.id,
 
@@ -117,7 +116,7 @@ export default function Agency_eidt_modal(props) {
                         <Button variant="danger" 
                         onClick={() => {  
                             axios
-                                .post(`${goturl}/agency_del/`, {
+                                .post(`http://127.0.0.1:8000/agency_del/`, {
                                             id:props.id
                                         })
                                         .then(function (response) {
@@ -143,7 +142,7 @@ export default function Agency_eidt_modal(props) {
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
                             axios
-                                .post(`${goturl}/agency/`, {
+                                .post("http://127.0.0.1:8000/agency/", {
                                             mode:'edit',
                                             id:props.id,
                                             username: username,

@@ -6,7 +6,6 @@ import styled from "styled-components";
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Memo_tabs from './Memo_tabs';
-import {useSelector} from 'react-redux';
 
 const Box_add = styled.div`
     width:100%;
@@ -66,7 +65,7 @@ const style = {
   
 
 function Communicate(props){
-    const goturl = useSelector((state) => state);
+    
     const [state, setState] = useState('main')
     const [title, setTitle] = useState('')
     const [sub, setSub] = useState('')
@@ -80,7 +79,7 @@ function Communicate(props){
     const Change_state2 = () => {
     
         axios
-            .post(`${goturl}/comments/`, {
+            .post("http://127.0.0.1:8000/comments/", {
                         mode:'get',
                     })
                     .then(function (response) {
@@ -120,7 +119,7 @@ function Communicate(props){
             <div style={{display:'flex'}}>
             <Button  variant='primary' onClick={()=> {
                       axios
-                      .post(`${goturl}/comments/`, {
+                      .post("http://127.0.0.1:8000/comments/", {
                                   mode:'add_main',
                                   title:title,
                                   sub:sub,
@@ -150,7 +149,7 @@ function Communicate(props){
 
         if(state_inner === 'needload'){
             axios
-        .post(`${goturl}/comments/`, {
+        .post("http://127.0.0.1:8000/comments/", {
                     mode:'inner',
                     id:id
                     
@@ -198,7 +197,7 @@ function Communicate(props){
                         <Button  variant='primary' onClick={Change_state2} >뒤로가기</Button>
                         <Button  variant='primary'  onClick={(e)=>(
                              axios
-                             .post(`${goturl}/comments/`, {
+                             .post("http://127.0.0.1:8000/comments/", {
                                         mode:'comment_create',
                                         id:id,
                                         user_id:window.localStorage.getItem('id'),
@@ -250,7 +249,7 @@ export default function Memo_modal(props) {
     const [content,setContent] =useState('');
     const [value, setValue] = React.useState(0);
     const [issuelist, setIssue] = useState([])
-    const goturl = useSelector((state) => state);
+
     if(props.memo === ''){
         var btn_color=('outline-primary')
     }
@@ -262,7 +261,7 @@ export default function Memo_modal(props) {
         
         <Button_ismemo onClick={()=>{
             axios
-            .post(`${goturl}/store/`, {
+            .post("http://127.0.0.1:8000/store/", {
                         mode:'get',
                         id:props.id,
 
@@ -309,7 +308,7 @@ export default function Memo_modal(props) {
                             <Button style={{marginLeft:2} } variant="primary" 
                             onClick={() => {
                                 axios
-                                    .post(`${goturl}/store/`, {
+                                    .post("http://127.0.0.1:8000/store/", {
                                                 mode:'memo',
                                                 id:props.id,
                                                 memo:content

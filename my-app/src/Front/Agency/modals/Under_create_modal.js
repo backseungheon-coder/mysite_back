@@ -4,7 +4,6 @@ import axios from 'axios';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import styled from 'styled-components'
-import {useSelector} from 'react-redux';
 
 const Button = styled.button`
 background: #06DE28;
@@ -56,7 +55,7 @@ export default function Memo_modal(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [content,setContent] =useState('');
-    const goturl = useSelector((state) => state);
+
     const [username,setusername] = useState('');
     const [password,setpassword] = useState('');
     const [agency_name,setagency_name] = useState('');
@@ -104,7 +103,7 @@ export default function Memo_modal(props) {
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
                             axios
-                            .post(`${goturl}/signup/`, {
+                            .post("http://127.0.0.1:8000/signup/", {
                                         mode:'under',
                                         id:props.id,
                                         username:username,
