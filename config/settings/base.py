@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'allauth.account',    
     'rest_framework.authtoken',
     'mainApp',
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
