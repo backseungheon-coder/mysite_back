@@ -1024,7 +1024,7 @@ class LoadView(APIView):
             print(x)
             url_list.append(
                 {
-                    'url':x.uploadedFile.url,
+                    'url':parse.unquote(x.uploadedFile.url),
                     'id':x.id
                 }
                 
