@@ -35,6 +35,8 @@ import urllib
 from urllib.parse import quote_plus
 from urllib.parse import unquote_plus
 import openpyxl
+from urllib import parse
+
 class Login_view(APIView):
       def post(self,request):
         
@@ -1037,10 +1039,10 @@ class Image_Del_View(APIView):
         image = get_object_or_404(Images, pk=request.data.get('id'))
 
         print(image.uploadedFile.url)
-        
-
+    
+       
         file_path = settings.BASE_DIR
-        del_path=(str(file_path)+str(image.uploadedFile.url))
+        del_path=(str(file_path)+str(parse.unquote(image.uploadedFile.url)))
         os.remove(del_path)
         image.delete()
         
@@ -1059,7 +1061,7 @@ class FileDownloadView(SingleObjectMixin, APIView):
             print(Basedir)
             counter = 0
             list_img = []
-
+            
             for x in image_list:
                 print(unquote_plus(x.uploadedFile.url))
                 # print(x.title)
