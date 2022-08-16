@@ -27,7 +27,7 @@ export default function Cal_modal(props) {
     const goturl = useSelector((state) => state);
 
     return (
-
+        
         <>
             <Button_cal onClick={handleShow}>
             정산 등록
@@ -39,7 +39,7 @@ export default function Cal_modal(props) {
                 </Modal.Header>
                 <Modal.Body>
                 
-       
+                
                 <FloatingLabel
                     
                     controlId="floatingInput"
@@ -70,7 +70,7 @@ export default function Cal_modal(props) {
                                     .then(function (response) {
                                         setTitle('')
                                         props.setloaded('needload') 
-
+                                        
                                     })
                                     .catch(function (error) {
                                         console.log(error);
@@ -81,13 +81,11 @@ export default function Cal_modal(props) {
 
                         >
                         등록
-                        
-                       
                         </Button>
                     </Box>
                 </Box>
                 </Modal.Footer>
-
+                
             </Modal>
         </>
 

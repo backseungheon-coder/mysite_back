@@ -24,7 +24,6 @@ export default function Cal_modal(props) {
                 id:props.id,
             })
             .then(function (response) {
- 
             setCalrows([...response.data])
             setLoaded(false)
             })
@@ -35,8 +34,6 @@ export default function Cal_modal(props) {
 
 
 
-    
-  
 
     return (
         <>

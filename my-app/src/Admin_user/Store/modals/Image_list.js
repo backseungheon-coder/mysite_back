@@ -84,7 +84,7 @@ export default function StandardImageList(props) {
         
                     <Button onClick={() => {
                       
-                        const url =`${goturl}img_del/`
+                        const url =`${goturl}/img_del/`
                         const formData = new FormData();
                         formData.append("id",props.id_list[idx])
                         axios({
@@ -98,8 +98,7 @@ export default function StandardImageList(props) {
                           props.loadModule();
                           alert('삭제 되었습니다.')
                           props.setImgList([])
-                        })
-
+                        }).catch(console.log(formData))
                       
                     }}>
                         <DeleteIcon sx={{color:'white'}}/>
@@ -111,7 +110,7 @@ export default function StandardImageList(props) {
 
                         style={{width: '90%', height: '160px'}}
                         alt={item.title}
-                        src={item}
+                        src={"https://"+item}
                     />
                 
  

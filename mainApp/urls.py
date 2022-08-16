@@ -25,10 +25,8 @@ urlpatterns = [
     path('manager/search/', SearchView.as_view()),
 
     path('manager/agency_num/', Num_a.as_view()),
-
     #Cal
     path('manager/Cal/', Cal_list.as_view()),
-
     #FAQ
     path('manager/FAQ/', FAQ_list.as_view()),
 

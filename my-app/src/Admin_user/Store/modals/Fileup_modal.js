@@ -87,11 +87,12 @@ export default function Fileup_modal(props) {
                 "Content-Type":"application/json",
                 }
         }).then(function(response){
-            var url_local = `${goturl}`;
+            var url_local = `api.nestatest.shop`;
             var list = [];
             var id_set_list =[];
             for(var i=0;i<response.data.length;i++){
                 list.push(url_local+response.data[i].url)
+                console.log(url_local+response.data[i].url)
             }
             for(var i=0;i<response.data.length;i++){
                 id_set_list.push(response.data[i].id)
@@ -125,6 +126,7 @@ export default function Fileup_modal(props) {
                 "Content-Type":"application/json",
             }
         }).then(function (response){
+            console.log(response.data);
             var url_local = `${goturl}`
             var media = response.data
             var donw = url_local+media
@@ -170,7 +172,7 @@ export default function Fileup_modal(props) {
             formData.append("id",props.id)
     
             const url =`${goturl}/upload/`
-    
+
             axios({
                 method: "POST",
                 url: url,

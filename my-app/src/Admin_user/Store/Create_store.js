@@ -36,7 +36,7 @@ function Button_bottom(props){
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
                             axios
-                                .post("${goturl}/store/", {
+                                .post(`${goturl}/store/`, {
                                             mode:'create',
                                             agency_id:props.agency,
                                             store_name: props.store_name,

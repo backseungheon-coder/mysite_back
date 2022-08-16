@@ -31,6 +31,7 @@ export default function ControlledTabs(props) {
     if(load === 'needload'){
         axios.get(`${goturl}/agency/`)
         .then((response) => {
+          alert('hi');
         seta_data([...response.data])
         setLoad('laoded')
         

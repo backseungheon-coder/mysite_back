@@ -20,8 +20,8 @@ border-radius:6px;
 `   
 
 function Button_bottom(props){
+const goturl = useSelector((state) => state);
     
-    const goturl = useSelector((state) => state);
         return(
             <Box  style={{width:'100%'} }>
                     
@@ -102,8 +102,8 @@ export default function Create_store(props) {
     const [state, setstate] = useState('');
     const [memo, setmemo] = useState('');
     
-
-
+    
+    const goturl = useSelector((state) => state);
 
 
   

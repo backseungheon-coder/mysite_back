@@ -1,5 +1,6 @@
 from datetime import datetime
 import http
+from platform import python_branch
 import re
 from string import printable
 from time import time
@@ -182,6 +183,9 @@ class FAQ_list(APIView):
             contents=request.data.get('contents'),
             )
 
+            
+            
+            
             serializer = FAQ_create_Form(data=request.data, instance=user_created)
             if serializer.is_valid():
                
@@ -193,8 +197,8 @@ class FAQ_list(APIView):
        
             
             faq = get_object_or_404(FAQ, pk=request.data.get('id'))
-          
 
+            
 
             faq.faq_title=request.data.get('faq_title')
             faq.faq_catego=request.data.get('faq_catego')
@@ -263,6 +267,8 @@ class Cal_list(APIView):
                 print('안잡힘')
                 return Response(None)
 
+
+        
         
 
         elif(request.data.get('mode') == 'add_inner'):
@@ -1031,7 +1037,7 @@ class Image_Del_View(APIView):
         image = get_object_or_404(Images, pk=request.data.get('id'))
 
         print(image.uploadedFile.url)
-
+        
 
         file_path = settings.BASE_DIR
         del_path=(str(file_path)+str(image.uploadedFile.url))

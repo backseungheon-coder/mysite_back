@@ -48,7 +48,7 @@ export default function Cal_modal(props) {
 
         }
         else if(loaded === 'inner_load'){
-
+            console.log(props.checked)
             axios.post(`${goturl}/Cal/`, {
                 mode:'load',
                 id:inner_id,
@@ -70,6 +70,7 @@ export default function Cal_modal(props) {
 
                 {cal_tlist.map((event,idx)=>(
                     <button id='container' onClick={() =>(
+                        
                         setmode('inner_list'),
                         setId(event.id),
                         setLoad('inner_load'),
@@ -117,14 +118,18 @@ export default function Cal_modal(props) {
                         <td><button
                         onClick={() =>(
                             axios.post(`${goturl}/Cal/`, {
+                                
                                 mode:'checked',
                                 checked:props.checked,
                                 id:event.id
                             })
                             .then((response) => {
+                                
                                 alert('등록이 완료 되었습니다.')
                                 window.location.reload()
-                            })
+                            }).catch(
+                                
+                            )
 
                         )}
                         >등록</button></td>
