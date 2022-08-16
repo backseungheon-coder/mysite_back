@@ -125,7 +125,7 @@ function Main_table(){
                                 "Content-Type":"application/json",
                                 }
                         }).then(function(response){
-                          var url_local = `${goturl}`
+                          var url_local = `api.nestatest.shop`
                           var media = response.data
                           var donw = url_local+media
                           fetch(donw)

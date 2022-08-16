@@ -1133,7 +1133,7 @@ class Excel_Create_View(APIView):
         elif request.data.get('mode') == 'del':
             file_path = settings.MEDIA_ROOT
 
-            os.remove(file_path + "\\test.xlsx")
+            os.remove(file_path + "/test.xlsx")
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(status=status.HTTP_204_NO_CONTENT)

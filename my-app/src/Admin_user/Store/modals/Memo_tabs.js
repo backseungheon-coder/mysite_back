@@ -64,19 +64,12 @@ export default function BasicTabs(props) {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="메모" {...a11yProps(0)} style={{width:'50%', fontSize:'20px'}}/>
-          <Tab label="특이사항" {...a11yProps(1)} style={{width:'50%', fontSize:'20px'}} 
-          onClick={handle}
-          />
+          <Tab label="메모" {...a11yProps(0)} style={{width:'100%', fontSize:'20px'}}/>
         </Tabs>
       </Box>
       <TabPanel style={{minHeight:'500px'}} component={'span'} value={value} index={0}>
         {props.element1}
       </TabPanel>
-      <TabPanel style={{minHeight:'500px'}} component={'span'} value={value} index={1}>
-        {props.element2}
-      </TabPanel>
-
     </Box>
   );
 }
