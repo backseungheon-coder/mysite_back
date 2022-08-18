@@ -63,7 +63,7 @@ function Main_table(){
     const [load,setLoad] = useState('needload');
     const [a_data, seta_data] = useState([]);
     const [checked, setChecked] = useState([]);
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     // const ExampleCustomInput = ({ value, onClick }) => (
     //     <Button variant="outline-secondary"className="example-custom-input" style={{margin:0,width:130}} onClick={onClick}>{value}</Button>
     // );
@@ -80,17 +80,17 @@ function Main_table(){
 
     if(open == false){
       var element =(
-        <><KeyboardArrowUpIcon sx={{ fontSize: 30 }}/></>
+        <><KeyboardArrowDownIcon sx={{ fontSize: 30 }}/></>
       )
     }
     else{
       var element =(
     
-        <><KeyboardArrowDownIcon sx={{ fontSize: 30 }}/></>
+        <><KeyboardArrowUpIcon sx={{ fontSize: 30 }}/></>
       )
 
     }
-
+    
     return(
         <Box
         sx={{
@@ -125,10 +125,11 @@ function Main_table(){
                                 "Content-Type":"application/json",
                                 }
                         }).then(function(response){
-                          var url_local = `api.nestatest.shop`
+                          var url_local = `https://api.nestatest.shop`
                           var media = response.data
                           var donw = url_local+media
                           fetch(donw)
+                          .then( console.log(donw))
                           .then(res => res.blob()) // Gets the response and returns it as a blob
                           .then(blob => {
                               fileDownload(blob, '가맹점_리스트.xlsx');
@@ -167,8 +168,17 @@ function Main_table(){
                           style={{border:'none',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',height:'50px'}}
                           />
 
+                          
+                          
+                          <Open_button
+                            onClick={()=> (
+                              alert('hi')
+                              
+                              )}
 
-                          <InputGroup.Text style={{border:'none',backgroundColor:'#fff',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'0px 50px 50px 0px',height:'50px'}}><SearchIcon sx={{color:'#A9A9A9'}}/></InputGroup.Text>
+
+                            asdjoasddq
+                          style={{border:'none',backgroundColor:'#fff',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'0px 50px 50px 0px',height:'50px'}}><SearchIcon sx={{color:'#A9A9A9'}}/></Open_button>
                       </InputGroup>
                   </Box>
                   <Box sx={{display: 'flex'}}>
@@ -195,6 +205,7 @@ function Main_table(){
                           
                           <Date_picker name={'등록일'}/>
 
+                          {/* <Date_picker name={'설치일'}/> */}
 
                           <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>검토현황</option>
@@ -203,48 +214,48 @@ function Main_table(){
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
                           </Form.Select>
-
+{/* 
                           <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>설치현황</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
-                          </Form.Select>
+                          </Form.Select> */}
 
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
+                          {/* <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>매장현황</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
-                          </Form.Select>
+                          </Form.Select> */}
 
                           <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>정산</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
-                              <option value="반려">반려</option>
-                              <option value="보완완료">보완완료</option>
+                              {/* <option value="반려">반려</option>
+                              <option value="보완완료">보완완료</option> */}
                           </Form.Select>
 
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
+                          {/* <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>월별정산</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
-                          </Form.Select>
+                          </Form.Select> */}
 
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
+                          {/* <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>가맹점명</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
-                          </Form.Select>
+                          </Form.Select> */}
 
-                          <Date_picker name={'설치일'}/>
+                         
                         </div>
                       </div>
             

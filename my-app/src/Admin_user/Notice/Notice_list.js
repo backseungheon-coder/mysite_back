@@ -193,7 +193,7 @@ export default function BasicTabs(props) {
     setValue(newValue);
     props.setloaded('loaded')
   };
-
+  
   return (
     <Box sx={{ width: '100%'}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider',width: '100%',display: 'flex',justifyContent: 'center',backgroundColor: 'white' }}>

@@ -25,9 +25,9 @@ export default function Cal_modal(props) {
     const [title,setTitle] =useState('');
 
     const goturl = useSelector((state) => state);
-
+    
     return (
-        
+            
         <>
             <Button_cal onClick={handleShow}>
             정산 등록

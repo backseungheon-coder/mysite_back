@@ -77,8 +77,8 @@ export default function Table_store(props) {
       props.setchange('changed')
       setTotalcount([...response.data].length)
         
-      })
-
+      })  
+    
     }
     const thst = {
         justifyContent:'center',alignItems:'center',textAlign:'center',color:'black',verticalAlign:'middle',padding:'4px',fontWeight:'normal',
@@ -105,10 +105,10 @@ export default function Table_store(props) {
               setTotalcount(rows.length);
             }}
           >
-            <option value="2">2</option>
-            <option value="4">4</option>
             <option value="10">10</option>
+            <option value="30">30</option>
             <option value="50">50</option>
+            <option value="100">100</option>
             <option value={rows.length}>All</option>
           </Form.Select>
 

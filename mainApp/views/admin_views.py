@@ -337,6 +337,47 @@ class Cal_list(APIView):
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+class StoreSearch(APIView):
+
+    def post(self, request):
+
+        store = Store.objects.all()
+        
+        search_name = request.data.get('search_name') 
+        agecy_id = request.data.get('agecy_id')
+        submit_date = request.data.get('submit_date')
+        now_cate = request.data.get('now_cate')
+        cal_cate = request.data.get('cal_cate')
+
+        if search_name:
+            store = store.filter(
+                Q(store_name__icontains=search_name) | Q(store_tell__icontains=search_name) | Q(store_add__icontains=search_name)
+            ).distinct()
+
+        if agecy_id:
+            store = store.filter(
+                Q(agency_id__icontains=agecy_id) 
+            ).distinct()
+
+        if submit_date:
+            store = store.filter(
+                Q(created_at__icontains=submit_date) 
+            ).distinct()
+
+        if now_cate:
+            store = store.filter(
+                Q(now__icontains=now_cate)
+            ).distinct()
+
+    
+        serializer = userSerializer(store, many=True)
+
+
+        return Response(serializer.data)
+
+        return Response( status=status.HTTP_201_CREATED)  
+
+
 class StoreList(APIView):
 
     def get(self, request):
@@ -1132,7 +1173,7 @@ class Excel_Create_View(APIView):
 
         elif request.data.get('mode') == 'del':
             file_path = settings.MEDIA_ROOT
-
+            
             os.remove(file_path + "/test.xlsx")
             return Response(status=status.HTTP_204_NO_CONTENT)
 

@@ -5,7 +5,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Date_picker from './Date_picker.js'
 
 export default function S_Buttons(props) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     if(open == true){
       var element =(
