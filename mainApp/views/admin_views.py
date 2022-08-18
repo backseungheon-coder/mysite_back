@@ -370,7 +370,7 @@ class StoreSearch(APIView):
             ).distinct()
 
     
-        serializer = userSerializer(store, many=True)
+        serializer = StoreSerializer(store, many=True)
 
 
         return Response(serializer.data)

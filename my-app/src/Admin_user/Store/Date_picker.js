@@ -15,6 +15,7 @@ export default function BasicDatePicker(props) {
         value={value}
         onChange={(newValue) => {
           setValue(newValue);
+          props.setsubmit_date(newValue)
         }}
         renderInput={(params) => <TextField {...params} />}
       />
