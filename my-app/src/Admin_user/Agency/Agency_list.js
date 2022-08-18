@@ -49,28 +49,7 @@ function Store_list(props){
     }
     var row = sort_group.flat()
     
-    const rendering = (prop) =>{
-      
-        
-        switch(prop){
-            case 1:
-                return(<><LooksOneIcon/></>)
-            case 2:
-                return(<>{'\u00A0'}{'\u00A0'}<LooksTwoIcon/></>)
 
-            case 3:
-                return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks3Icon/></>)
-            
-            case 4:
-                return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks4Icon/></>)
-            
-            case 5:
-                return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks5Icon/></>)
-            
-            case 6:
-                return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks6Icon/></>)
-            }
-    }
     
 
     return(
@@ -94,7 +73,7 @@ function Store_list(props){
         {props.rows.map((event,idx)=>(
             <tr key={event.id}>
             <td>{(props.rows.length)-(idx)}</td>
-            <td style={{textAlign:'left'}}>{rendering(event.level)}{event.agency_name}</td>
+            <td style={{textAlign:'left'}}>{event.agency_name}</td>
             <td>{event.manager_name}</td>
             <td>{event.username}</td>
             <td>{event.agency_tell}</td>
@@ -168,20 +147,25 @@ function Btn(props){
         <>
         <Box sx={{display:"flex", justifyContent:'flex-start', margin:0}} className="table_btn">
         
-            <Form.Select style={{width:150}}  onChange={handleSelect}>
+            <Form.Select style={{width:150}}  onChange={handleSelect} value={select}>
                 <option>상태</option>
                 <option value="정상">정상</option>
                 <option value="정지">정지</option>
             </Form.Select>
         
-            <TextField  label="이름" size="small" variant="outlined" onChange={handlename} />
-            <TextField  label="전화번호" size="small" variant="outlined" onChange={handelnum}/>
-            <TextField  label="이메일" size="small" variant="outlined" onChange={handelemail}/>
+            <TextField  label="이름" size="small" variant="outlined" onChange={handlename} value={search_name}/>
+            <TextField  label="전화번호" size="small" variant="outlined" onChange={handelnum} value={search_num}/>
+            <TextField  label="이메일" size="small" variant="outlined" onChange={handelemail} value={search_email}/>
 
             <Button variant="primary"
             
             onClick={()=>{
                 props.setloadstate('loaded')
+                setselect('')
+                setsearch_name('')
+                setsearch_num('')
+                setsearch_email('')
+
             }}
         
             >초기화</Button>

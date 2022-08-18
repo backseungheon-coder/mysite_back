@@ -22,7 +22,6 @@ import json
 from django.http import JsonResponse ,HttpResponse
 from argon2 import PasswordHasher
 from django.db.models import Q
-import datetime
 from rest_framework.parsers import JSONParser
 import os
 from django.conf import settings 
@@ -206,7 +205,7 @@ class FAQ_list(APIView):
             faq.faq_catego=request.data.get('faq_catego')
             faq.visdis=request.data.get('visdis')
             faq.contents=request.data.get('contents')
-            faq.modified_date=datetime.today()
+            faq.modified_date=datetime.datetime.today()
             faq.save()
             return Response( status=status.HTTP_201_CREATED)  
 
@@ -283,7 +282,7 @@ class Cal_list(APIView):
                 cal_inner=caladd,
                 cal_name=request.data.get('title'),
                 cal_sub=request.data.get('sub'),
-                created_date=datetime.today(),
+                created_date=datetime.now(),
             )
             return Response(status=status.HTTP_201_CREATED)
 
@@ -340,11 +339,9 @@ class Cal_list(APIView):
 class StoreSearch(APIView):
 
     def post(self, request):
-
+        ag_id = (request.data.get('agency_id'))
         store = Store.objects.all()
-        
         search_name = request.data.get('search_name') 
-        agecy_id = request.data.get('agecy_id')
         submit_date = request.data.get('submit_date')
         now_cate = request.data.get('now_cate')
         cal_cate = request.data.get('cal_cate')
@@ -354,9 +351,10 @@ class StoreSearch(APIView):
                 Q(store_name__icontains=search_name) | Q(store_tell__icontains=search_name) | Q(store_add__icontains=search_name)
             ).distinct()
 
-        if agecy_id:
+        if request.data.get('agency_id') != '':
+            agency_name = get_object_or_404(User, id=ag_id).agency_name
             store = store.filter(
-                Q(agency_id__icontains=agecy_id) 
+                Q(agency_name__icontains=agency_name) 
             ).distinct()
 
         if submit_date:
@@ -368,6 +366,8 @@ class StoreSearch(APIView):
             store = store.filter(
                 Q(now__icontains=now_cate)
             ).distinct()
+        
+        
 
     
         serializer = StoreSerializer(store, many=True)

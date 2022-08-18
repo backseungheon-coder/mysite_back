@@ -65,26 +65,36 @@ function Main_table(){
     const [checked, setChecked] = useState([]);
     const [open, setOpen] = useState(true);
 
+    const [searched_change, setsearched_change] = useState('unsearched')
+    const [loadstate, setloadstate] = useState('loaded');
+    const [s_rows,sets_rows] = useState([])
+    const [rows, setrows] = useState([])
+    const [totalcount, setTotalcount] = useState();
+
+
+
     const [search_name,setsearch_name] = useState('');
-    const [agecy_id,setagecy_id] = useState('');
+    const [agency_id,setagency_id] = useState('');
     const [submit_date,setsubmit_date] = useState('');
     const [now_cate,setnow_cate] = useState('');
     const [cal_cate,setcal_cate] = useState('');
 
-    
+    const goturl = useSelector((state) => state);
 
-
-
-
-
-
+    if(loadstate==='loaded'){
+      axios.get(`${goturl}/store/`)
+      .then((response) => {
+        setrows([...response.data])
+        setloadstate('needload')
+        setTotalcount([...response.data].length)
+          
+        })  
+    }
 
     // const ExampleCustomInput = ({ value, onClick }) => (
     //     <Button variant="outline-secondary"className="example-custom-input" style={{margin:0,width:130}} onClick={onClick}>{value}</Button>
     // );
-    const goturl = useSelector((state) => state);
-
-
+    
     if(load === 'needload'){
         axios.get(`${goturl}/agency/`)
         .then((response) => {
@@ -197,7 +207,7 @@ function Main_table(){
                               axios
                               .post(`${goturl}/store_search/`, {
                                         search_name:search_name,
-                                        agecy_id:agecy_id,
+                                        agency_id:agency_id,
                                         submit_date:submit_date,
                                         now_cate:now_cate,
                                         cal_cate:cal_cate,
@@ -205,6 +215,9 @@ function Main_table(){
                                       })
                                       .then(function (response) {
                                           console.log(response.data);
+                                          setrows([...response.data]);
+
+
                                       })
                                       .catch(function (error) {
                                           console.log(error);
@@ -231,10 +244,10 @@ function Main_table(){
                         <div style={{display: 'flex',marginLeft:'20px'}}>
                           <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}
                                                     onChange={(e)=>{
-                                                      setagecy_id(e.target.value);
+                                                      setagency_id(e.target.value);
                                                     }}
                           >
-                              <option>대리점</option>
+                              <option value={null}>대리점</option>
                               {a_data.map((event,idx)=>(
                                   <option value={event.id} key={idx}>{event.agency_name}</option>
                               ))}
@@ -309,7 +322,7 @@ function Main_table(){
               </Box>
 
               <Box sx={{marginBottom:5}}>
-                <Store_list checked={checked} setChecked={setChecked} change={change} setchange={setchange} />
+                <Store_list setTotalcount={setTotalcount} rows={rows} totalcount={totalcount} setsearched_change={setsearched_change} searched_change={searched_change} s_rows={s_rows} checked={checked} setChecked={setChecked} change={change} setchange={setchange} />
               </Box>          
       </Box>
     )

@@ -30,8 +30,8 @@ return(
 
 export default function Table_store(props) {
     
-  const [loadstate, setloadstate] = useState('loaded');
-  const [rows, setrows] = useState([])
+  
+  
   const [allchecked, setAllchecked] = useState(false);
   const [allcheckedlist, setallcheckedlist] = useState([]);
   const [checkedInputs, setCheckedInputs] = useState([]);
@@ -39,14 +39,14 @@ export default function Table_store(props) {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-  const [totalcount, setTotalcount] = useState();
+
   const goturl = useSelector((state) => state);
 
   const allchaneHandler = () =>{
     setAllchecked(!allchecked)
     if (allchecked==false){
-      for (let i = 0; i < rows.length; i++){
-        allcheckedlist.push(rows[i].id)
+      for (let i = 0; i < props.rows.length; i++){
+        allcheckedlist.push(props.rows[i].id)
       }
       setCheckedInputs(allcheckedlist)
       props.setChecked(allcheckedlist)
@@ -69,17 +69,8 @@ export default function Table_store(props) {
     }
   };
 
-  if(loadstate==='loaded' || props.change==='needchange'){
-    axios.get(`${goturl}/store/`)
-    .then((response) => {
-      setrows([...response.data])
-      setloadstate('needload')
-      props.setchange('changed')
-      setTotalcount([...response.data].length)
-        
-      })  
-    
-    }
+
+
     const thst = {
         justifyContent:'center',alignItems:'center',textAlign:'center',color:'black',verticalAlign:'middle',padding:'4px',fontWeight:'normal',
       }
@@ -89,6 +80,7 @@ export default function Table_store(props) {
       const check_color = {
         textAlign:'center',color:'white',verticalAlign:'middle',backgroundColor:'#0D99FF',
       }
+
 
 
   
@@ -102,25 +94,25 @@ export default function Table_store(props) {
             onChange={({ target: { value } }) => {
               setLimit(Number(value));
               setPage(1);
-              setTotalcount(rows.length);
+              props.setTotalcount(props.rows.length);
             }}
           >
             <option value="10">10</option>
             <option value="30">30</option>
             <option value="50">50</option>
             <option value="100">100</option>
-            <option value={rows.length}>All</option>
+            <option value={props.rows.length}>All</option>
           </Form.Select>
 
       </div>
       <div>
       <Pagination
-            total={rows.length}
+            total={props.rows.length}
             limit={limit}
             page={page}
             setPage={setPage}
-            setTotalcount={setTotalcount}
-            totalcount={totalcount}
+            setTotalcount={props.setTotalcount}
+            totalcount={props.totalcount}
           />
       </div>
     </div>
@@ -152,7 +144,7 @@ export default function Table_store(props) {
 
     <tbody style={{borderTop:'none'}}>
 
-    {rows.slice(offset, offset + limit).map((event,idx)=>(
+    {props.rows.slice(offset, offset + limit).map((event,idx)=>(
         <tr key={event.id}>       
             <th style={thst}><input type="checkbox" style={thst} id={event.id}   checked={checkedInputs.includes(event.id) ? true : false}
             onChange={(e)=>{
@@ -160,7 +152,7 @@ export default function Table_store(props) {
             }}
 
             /></th>
-            <th style={thst}>{totalcount-(idx)}</th>
+            <th style={thst}>{props.totalcount-(idx)}</th>
             <th style={thst}><div style={{fontWeight:'normal'}}>{event.agency_name}</div></th>
             <th style={thst}><User_data_progress store_name={event.store_name} store_tell={event.store_tell} store_add={event.store_add}/></th>
             <th style={thst}>{event.state}</th>
