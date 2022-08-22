@@ -40,6 +40,7 @@ function Notice_list(props){
     if(props.loaded === 'loaded'){
       const url =`${goturl}/notice/get`;
     axios({
+        
         method: "GET",
         url: url,
         data: '',
@@ -50,8 +51,12 @@ function Notice_list(props){
 
       var box_list = []
 
-      if(props.state === 'all'){
+      if(props.state === 'all' && props.searched === 'unsearched'){
         setrows([...response.data])
+        
+      }
+      else if(props.state === 'all' && props.searched === 'searched'){
+        setrows(props.searched_list)
         
       }
       else if(props.state ==='default'){
@@ -115,13 +120,18 @@ function Notice_list(props){
                               props.setInneritem(event);
                               props.setloaded('loaded');
                               props.setdisplay('inner');
-                              props.setFileList(event._file)
+                              props.setFileList(event._file);
                             }}
                             > <span style={{color:'#FE2222'}}>{event.notice_title}</span> <span><AttachFileIcon/></span>  </td>
                             <td style={{width:'10%',border:'0px',display:'flex',justifyContent: 'center',height:'48px',alignItems:'center'}}>{event.created_date}</td>
                         </tr>
+
+                        
+                          
                       )
+                        
                     }
+
                     else{
                       return(
                         <tr key={idx} style={{display:'flex', justifyContent: 'center',width:'60%',height:'55px',alignItems: 'center'}}>
@@ -156,6 +166,7 @@ function Notice_list(props){
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  
 
   return (
     <div
@@ -189,6 +200,11 @@ function a11yProps(index) {
 
 export default function BasicTabs(props) {
   const [value, setValue] = React.useState(0);
+  const [search_name,setsearch_name] =useState('');
+  const [searched_list,setsearched_list] = useState([]);
+  const goturl = useSelector((state) => state);
+  const [searched,setsearched] = useState('unsearched');
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     props.setloaded('loaded')
@@ -211,8 +227,29 @@ export default function BasicTabs(props) {
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
                 style={{borderLeft: '1px solid #D1D1D1',borderRadius:'50px 0px 0px 50px',height:'30px'}}
+                onChange={(e)=>{
+                  setsearch_name(e.target.value);
+                }}
+                value={search_name}
                 />
-                <InputGroup.Text style={{backgroundColor:'white',border:'1px solid #D1D1D1',borderRadius:'0px 50px 50px 0px',height:'30px'}}><SearchIcon sx={{color:'#A9A9A9'}}/></InputGroup.Text>
+                <button
+                      onClick={() =>(
+                            axios.post(`${goturl}/notice/search/`, {
+                                
+                                mode:'search',
+                                search_name:search_name,
+                                
+                            })
+                            .then((response) => {
+                              console.log(response.data);
+                              setsearched_list([...response.data]);
+                              setsearched('searched');
+                              props.setloaded('loaded')
+                            })
+
+                        )}
+                style={{backgroundColor:'white',border:'1px solid #D1D1D1',borderRadius:'0px 50px 50px 0px',height:'30px',width:'50px'}}>
+                  <SearchIcon sx={{color:'#A9A9A9'}}/></button>
             </InputGroup>
 
         </Box>
@@ -220,10 +257,10 @@ export default function BasicTabs(props) {
 
       <TabPanel value={value} index={0} style={{width: '100%'}} className='tab'>
         <Box sx={{width: '100%',display: 'flex',justifyContent: 'center',backgroundColor:'white'}} className="box">
-                <Notice_list setFileList={props.setFileList} state={'all'} setdisplay={props.setdisplay} setloaded={props.setloaded} loaded={props.loaded} setInneritem={props.setInneritem}/>
+                <Notice_list searched={searched} setsearched={setsearched} searched_list={searched_list} setFileList={props.setFileList} state={'all'} setdisplay={props.setdisplay} setloaded={props.setloaded} loaded={props.loaded} setInneritem={props.setInneritem}/>
         </Box>
       </TabPanel>
-
+                
       <TabPanel value={value} index={1} style={{width: '100%'}} className='tab'>
         <Box sx={{width: '100%',display: 'flex',justifyContent: 'center',backgroundColor:'white'}} className="box">
                 <Notice_list setFileList={props.setFileList} state={'default'} setdisplay={props.setdisplay} setloaded={props.setloaded} loaded={props.loaded} setInneritem={props.setInneritem}/>
@@ -238,7 +275,7 @@ export default function BasicTabs(props) {
 
       <TabPanel value={value} index={3} style={{width: '100%'}} className='tab'>
         <Box sx={{width: '100%',display: 'flex',justifyContent: 'center',backgroundColor:'white'}} className="box">
-                <Notice_list setFileList={props.setFileList} state={'else'} setdisplay={props.setdisplay} setloaded={props.setloaded} loaded={props.loaded} setInneritem={props.setInneritem}/>
+                <Notice_list  setFileList={props.setFileList} state={'else'} setdisplay={props.setdisplay} setloaded={props.setloaded} loaded={props.loaded} setInneritem={props.setInneritem}/>
         </Box>
       </TabPanel>
     </Box>

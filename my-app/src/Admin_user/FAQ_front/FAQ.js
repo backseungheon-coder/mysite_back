@@ -16,8 +16,11 @@ function Matin_table(props){
     const goturl = useSelector((state) => state);
     const [loadstate, setloadstate] = useState('loaded');
     const [row, setrows] = useState([])
+    const [search_name,setsearch_name] = useState('');
+    const [searched,setsearched] = useState('unsearched');
+    const [searched_list,setsearched_list] = useState([]);
 
-    if(loadstate==='loaded'){
+    if(loadstate==='loaded' && searched === 'unsearched'){
 
 
             axios.get(`${goturl}/FAQ`)
@@ -27,6 +30,11 @@ function Matin_table(props){
                 // props.setchange('changed')
               })
     }
+    else if(loadstate==='loaded' && searched === 'searched'){
+        setrows(searched_list)
+        setloadstate('unsearched')
+    }
+
 
     return(
         <>
@@ -41,8 +49,35 @@ function Matin_table(props){
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         style={{border:'none',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'50px 0px 0px 50px',height:'50px'}}
+                                                
+                        onChange={(e)=>{
+                            setsearch_name(e.target.value);
+                          }}
+
+                          value={search_name}
                         />
-                        <InputGroup.Text style={{border:'none',backgroundColor:'#fff',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'0px 50px 50px 0px',height:'50px'}}><SearchIcon sx={{color:'#A9A9A9'}}/></InputGroup.Text>
+                        <button style={{border:'none',backgroundColor:'#fff',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'0px 50px 50px 0px',height:'50px',width:'40px'}}
+
+
+                        onClick={() =>(
+                            axios.post(`${goturl}/FAQ/search/`, {
+                                
+                                mode:'search',
+                                search_name:search_name,
+                                
+                            })
+                            .then((response) => {
+                              console.log(response.data);
+                              setsearched_list([...response.data]);
+                              setsearched('searched');
+                              setloadstate('loaded') 
+
+                                
+                            })
+
+                        )}
+
+                        ><SearchIcon sx={{color:'#A9A9A9'}}/></button>
                     </InputGroup>
                     
             </div>

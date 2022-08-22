@@ -126,6 +126,8 @@ class Comments(models.Model):
     date = models.DateField(default=date.today)
 
 
+
+
 class FAQ(models.Model):
     faq_title = models.CharField(max_length=300,null=False,blank=False)
     contents =  models.TextField(null=True,blank=True)

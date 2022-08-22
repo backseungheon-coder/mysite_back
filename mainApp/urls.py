@@ -33,6 +33,7 @@ urlpatterns = [
     path('manager/Cal/', Cal_list.as_view()),
     #FAQ
     path('manager/FAQ/', FAQ_list.as_view()),
+    path('manager/FAQ/search/', FAQ_list.as_view()),
 
     path("manager/upload/", Images_view.as_view()),
     path("manager/fileread/", LoadView.as_view()),
@@ -44,6 +45,7 @@ urlpatterns = [
     path("manager/notice/create/", Notice_view.as_view()),
     path("manager/notice/get/", Notice_view.as_view()),
     path("manager/notice/up/", Notice_view.as_view()),
+    path("manager/notice/search/", Notice_view.as_view()),
 
 
     path("manager/create/excel/",Excel_Create_View.as_view()),

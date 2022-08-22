@@ -104,7 +104,6 @@ const Button_rp = styled.button`
         background: #0D99FF;
         color:white
     }
-
 `
 
 
@@ -313,7 +312,7 @@ function Matin_table(props){
                     
                 </div>
 
-                <Notice_wigi setNotice_data={setNotice_data} />
+                <Notice_wigi mode={'create'} setNotice_data={setNotice_data} />
      
                 
                 </Box>
@@ -439,7 +438,7 @@ function Matin_table(props){
                     
                 </div>
 
-                <Notice_wigi contents={inner_item.contents} setNotice_data={setNotice_data} />
+                <Notice_wigi mode={'edit'} contents={inner_item.contents} setNotice_data={setNotice_data} />
      
                 
                 </Box>

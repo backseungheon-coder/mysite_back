@@ -205,7 +205,7 @@ class FAQ_list(APIView):
             faq.faq_catego=request.data.get('faq_catego')
             faq.visdis=request.data.get('visdis')
             faq.contents=request.data.get('contents')
-            faq.modified_date=datetime.datetime.today()
+            faq.modified_date=datetime.today()
             faq.save()
             return Response( status=status.HTTP_201_CREATED)  
 
@@ -220,6 +220,26 @@ class FAQ_list(APIView):
 
             
             return Response(status=status.HTTP_201_CREATED)
+
+        elif(request.data.get('mode')=='search'):
+            
+
+ 
+            faq = FAQ.objects.all()
+            search_name = request.data.get('search_name')  # 정렬기준
+
+
+            if search_name:
+                faq = faq.filter(
+                        Q(faq_title__icontains=search_name) # 제목검색
+                ).distinct()
+
+            
+    
+            serializer = FAQ_create_Form(faq, many=True)
+
+
+            return Response(serializer.data)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -1025,6 +1045,29 @@ class Notice_view(APIView):
 
             return Response(status=status.HTTP_204_NO_CONTENT)
 
+        elif(request.data.get('mode')=='search'):
+            
+
+ 
+            notice = Notice.objects.all()
+            search_name = request.data.get('search_name')  # 정렬기준
+
+
+            if search_name:
+                notice = notice.filter(
+                        Q(notice_title__icontains=search_name) # 제목검색
+                ).distinct()
+
+            
+    
+            serializer = Notice_get_Form(notice, many=True)
+
+
+            return Response(serializer.data)
+
+
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
 # -----------------------------------------------파일업로드-----------------------------------------------------------
 class Images_view(APIView):
     def post(self, request):
@@ -1075,12 +1118,14 @@ class LoadView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+
 class Image_Del_View(APIView):
     def post(self, request):
         image = get_object_or_404(Images, pk=request.data.get('id'))
 
         print(image.uploadedFile.url)
     
+         
        
         file_path = settings.BASE_DIR
         del_path=(str(file_path)+str(parse.unquote(image.uploadedFile.url)))
@@ -1157,9 +1202,7 @@ def excel_create(filepath):
     filename = "/media/test.xlsx"
     
     return(filename)
-
-
-
+ 
 class Excel_Create_View(APIView):
     def post(self, request):
         if request.data.get('mode') == 'create':
@@ -1197,25 +1240,44 @@ class Dash_Admin_view(APIView):
         for x in store:
             store_count = store_count + 1
 
-        d = datetime.datetime.now()
+        d = datetime.now()
 
         for x in store:    
             if x.created_at.month == d.month:
                 month_agency_count=month_agency_count+1
 
             if x.created_at.month == d.month and x.created_at.day == d.day:
-                day_agency_count=day_agency_count+1
+                day_agency_count=day_agency_count+1      
+
         
-        data_agency  = 0
+
+
         list = []
         for x in agency:
             data_agency= 0
             for y in store:
                 if y.agency_id == x:
                     data_agency=data_agency+1
+        
+
+
             adata = {'name': str(x.agency_name), '실적': data_agency, 'pv': 2400, 'amt': 2400}
         
             list.append(adata)
+
+        
+            
+        
+        # performance_count = 0
+        # box = ''
+        # for x in list:
+        #     # performance_count= performance_count+1
+        #     box = int(x['실적'])
+        #     print(int(x['실적']))
+        list = (sorted(list , key= lambda x: x['실적'],reverse=True))
+
+        list=(list[:5])
+
 
         data= {
             "agency": agency_count,
@@ -1229,4 +1291,3 @@ class Dash_Admin_view(APIView):
     def post(self, request , pk):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-
