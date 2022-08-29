@@ -80,14 +80,14 @@ urlpatterns = [
     path('front/agency/groups', GroupList.as_view()),
     path('front/signup/', Signupview.as_view()),
     path('front/search/', fornt_SearchView.as_view()),
-    path('front/store/search', fornt_StoreSearchView.as_view()),
+    path('front/store_search/', fornt_StoreSearchView.as_view()),
     
     path('front/agency_num/', front_Num_a.as_view()),
 
     path('front/FAQ/', FAQ_list.as_view()),
 
     path("front/create/excel/",Excel_Create_View.as_view()),
-
+    
 ]
 
 if settings.DEBUG: 

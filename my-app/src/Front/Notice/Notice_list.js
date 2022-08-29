@@ -197,7 +197,7 @@ export default function BasicTabs(props) {
   return (
     <Box sx={{ width: '100%'}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider',width: '100%',display: 'flex',justifyContent: 'center',backgroundColor: 'white' }}>
-
+        
         <Box sx={{width: '60%',display: 'flex',justifyContent: 'flex-end',alignItems: 'center'}}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{width: '100%'}}>
             <Tab sx={{fontWeight: 'bold'}} label="전체" {...a11yProps(0)} />
@@ -212,7 +212,11 @@ export default function BasicTabs(props) {
                 aria-describedby="basic-addon2"
                 style={{borderLeft: '1px solid #D1D1D1',borderRadius:'50px 0px 0px 50px',height:'30px'}}
                 />
-                <InputGroup.Text style={{backgroundColor:'white',border:'1px solid #D1D1D1',borderRadius:'0px 50px 50px 0px',height:'30px'}}><SearchIcon sx={{color:'#A9A9A9'}}/></InputGroup.Text>
+                <button style={{backgroundColor:'white',border:'1px solid #D1D1D1',borderRadius:'0px 50px 50px 0px',height:'30px',width:'50px'}}
+
+                
+
+                ><SearchIcon sx={{color:'#A9A9A9'}}/></button>
             </InputGroup>
 
         </Box>

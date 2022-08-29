@@ -35,7 +35,7 @@ function Matin_table(props){
                     <Box sx={{display: 'flex'}}>
                         {/* <Button variant="primary" style={css_right}>일괄정산</Button> */}
                     
-                        <Agency_create_modal setchange={setchange}/>
+                        {/* <Agency_create_modal setchange={setchange}/> */}
                 
                     </Box>
   

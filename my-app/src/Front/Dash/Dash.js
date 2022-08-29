@@ -20,6 +20,8 @@ const Container_styled = styled.div`
     flex-direction:column;
     align-items:center;
     background:#F3F3F3;
+    
+
 `
 
 const Inner_top_Box = styled.div`
@@ -48,13 +50,21 @@ const Grid_Box = styled.div`
         `}
 `
 
+
+
 const Notice_Box = styled.div`
     margin:10px;
-    grid-column: 1 / 3;
+    grid-column: 1 / 4;
 	grid-row: 2 / 2;
     border-radius:20px;
     background-color:white;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    
 `
+
 
 const Bottom_sub_Box = styled.div`
     margin:10px;
@@ -63,24 +73,28 @@ const Bottom_sub_Box = styled.div`
     border-radius:20px;
     background-color:white;
     display:flex;
+    flex-direction:column;
     justify-content:center;
 `
 
 const Top_Box_con = styled.div`
     margin:10px;
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     justify-content:space-between;
 `
 
 const Top_Box_inner = styled.div`
     border-radius:10px;
-    height: 46%;
+    height: 100%;
     width: 100%;
-    background-color:#FFF7CD;
+    margin-right:10px;
+    margin-left:10px;
+    background-color:#ffffff;
     display:flex;
+    flex-direction:column;
     align-items:center;
-    justify-content: space-around;
+    justify-content: center;
 `
 
 const Inner_circle = styled.div`
@@ -90,7 +104,7 @@ const Inner_circle = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-    background-image: linear-gradient(135deg, rgba(16, 57, 150, 0) 0%, rgba(16, 57, 150, 0.24) 100%);
+    background-image: linear-gradient(135deg, #0d99ff 40%, #466FFF 100%);
 `
 
 const Inner_circle_small = styled.div`
@@ -100,8 +114,9 @@ const Inner_circle_small = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-    background-image: linear-gradient(135deg, rgba(183, 129, 3, 0) 0%, rgba(183, 129, 3, 0.24) 100%);
+    background-image: linear-gradient(135deg, #0d99ff 40%, #466FFF 100%);
 `
+
 
 function Matin_table(props){
     const [loadstate, setloadstate] = useState('needload');
@@ -132,44 +147,41 @@ function Matin_table(props){
     return(
         <Container_styled>
             <Inner_top_Box>
-                <Grid_Box style={{background:'#D1E9FC'}}>
+                <Grid_Box >
                     <Inner_circle>
-                        <AddBusinessIcon sx={{fontSize:'50px'}} />
+                    <div style={{fontWeight:'bold',fontSize:'40px',color:'white'}}>{row.store}</div>
                     </Inner_circle>
-                    <div style={{marginTop:'10px',fontWeight:'bold',fontSize:'30px',color:'#061B64'}}>{row.store}</div>
-                    <div style={{fontSize:'12.6px',color:'#061B64'}}>그룹 가맹점 수</div>
+                    
+                    <div style={{marginTop:'10px',fontWeight:'bold',fontSize:'12.6px',color:'black'}}>그룹 가맹점 수</div>
                 </Grid_Box>
-                <Grid_Box  style={{background:'#D0F2FF'}}>
-                <Inner_circle style={{backgroundImage:'linear-gradient(135deg, rgba(12, 83, 183, 0) 0%, rgba(12, 83, 183, 0.24) 100%)'}}>
-                    <GroupsIcon sx={{fontSize:'50px'}} />
+                <Grid_Box >
+                <Inner_circle >
+                    <div style={{fontWeight:'bold',fontSize:'40px',color:'white'}}>{row.agency}</div>
                     </Inner_circle>
-                    <div style={{marginTop:'10px',fontWeight:'bold',fontSize:'30px',color:'#04297A'}}>{row.agency}</div>
-                    <div style={{fontSize:'12.6px',color:'#04297A'}}>그룹 대리점 수</div>
+                    <div style={{marginTop:'10px',fontWeight:'bold',fontSize:'12.6px',color:'black'}}>그룹 대리점 수</div>
                 </Grid_Box>
 
                 <Top_Box_con>
                     <Top_Box_inner>
                         <Inner_circle_small>
-                            <ContentPasteGoIcon sx={{fontSize:'40px'}}/>
-                        </Inner_circle_small>
-                        <div style={{display:'flex', flexDirection:'column',alignItems: 'center'}}>
-                            <div style={{fontSize:'40px',fontWeight:'bold',color:'#7A4F01'}}>
+                        <div style={{fontSize:'40px',fontWeight:'bold',color:'white'}}>
                                     {row.d_agency}
                             </div>
-                            <div style={{fontSize:'12.6px',color:'#7A4F01'}}>
+                        </Inner_circle_small>
+                        <div style={{display:'flex', flexDirection:'column',alignItems: 'center'}}>
+                            <div style={{marginTop:'10px',fontSize:'12.6px',color:'black',fontWeight:'bold'}}>
                                     오늘 실적 수
                             </div>
                         </div>
                     </Top_Box_inner>
-                    <Top_Box_inner style={{background:'#FFE7D9'}}>
-                        <Inner_circle_small style={{backgroundImage:'linear-gradient(135deg, rgba(183, 33, 54, 0) 0%, rgba(183, 33, 54, 0.24) 100%)'}}>
-                            <ContentPasteGoIcon sx={{fontSize:'40px'}}/>
-                        </Inner_circle_small>
-                        <div style={{display:'flex', flexDirection:'column',alignItems: 'center'}}>
-                            <div style={{fontSize:'40px',fontWeight:'bold',color:'#7A0C2E'}}>
+                    <Top_Box_inner>
+                        <Inner_circle_small>
+                        <div style={{fontSize:'40px',fontWeight:'bold',color:'white'}}>
                                     {row.m_agency}
                             </div>
-                            <div style={{fontSize:'12.6px',color:'#7A0C2E'}}>
+                        </Inner_circle_small>
+                        <div style={{display:'flex', flexDirection:'column',alignItems: 'center'}}>
+                            <div style={{marginTop:'10px',fontSize:'12.6px',color:'black',fontWeight:'bold'}}>
                                     이번달 실적 수
                             </div>
                         </div>
@@ -177,7 +189,9 @@ function Matin_table(props){
                 </Top_Box_con>
                 
                 <Notice_Box>
-                    <div style={{fontSize:'30px',textAlign:'center'}}>대리점 실적</div>
+                <div style={{fontSize:'30px',textAlign:'center'}}>공지사항</div>
+                    <Dash_Notice/>
+                    {/* <div style={{fontSize:'30px',textAlign:'center'}}>대리점 실적</div>
                     <ResponsiveContainer width="98%" height="80%">
                         <BarChart  data={data}>
                             <XAxis dataKey="name" stroke="#8884d8" />
@@ -186,11 +200,8 @@ function Matin_table(props){
                             <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                             <Bar dataKey="실적" fill="#8884d8" barSize={30} />
                         </BarChart>
-                    </ResponsiveContainer>
+                    </ResponsiveContainer> */}
                 </Notice_Box>
-                <Bottom_sub_Box>
-                    <Dash_Notice/>
-                </Bottom_sub_Box>
             </Inner_top_Box>
         </Container_styled>
     )

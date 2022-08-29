@@ -22,7 +22,7 @@ import './navsytle.scss'
 import Dash from './Dash/Dash.js';
 
 function Main(props) {
-
+  const name = window.localStorage.getItem('loggeduser')
     return (
       <>
         <BrowserRouter>
@@ -90,7 +90,7 @@ function Main(props) {
         <hr></hr>
         <div className="text-center p-3" >
         Copyright ©2021 네스타
-        테스트용 메시지: 어드민 계정으로 로그인 되었습니다.
+        테스트용 메시지: 프론트 {name}
         </div>
       </footer>
     </div>

@@ -365,6 +365,8 @@ class StoreSearch(APIView):
         submit_date = request.data.get('submit_date')
         now_cate = request.data.get('now_cate')
         cal_cate = request.data.get('cal_cate')
+        
+        print('hi')
 
         if search_name:
             store = store.filter(

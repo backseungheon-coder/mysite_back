@@ -13,6 +13,7 @@ import Looks4Icon from '@mui/icons-material/Looks4';
 import Looks5Icon from '@mui/icons-material/Looks5';
 import Looks6Icon from '@mui/icons-material/Looks6';
 import TextField from '@mui/material/TextField';
+
 import {useSelector} from 'react-redux';
 
 function Store_list(props){
@@ -23,9 +24,15 @@ function Store_list(props){
     var sort_group = []
     var asd = []
 
+    
+
     if(props.loadstate==='loaded' || props.change==='needchange'){
 
-        axios.get(`${goturl}/agency_num/`)
+        axios.post(`${goturl}/agency_num/`,{
+            'id': window.localStorage.getItem('id')
+        }
+        )
+
         .then((response) => {
             props.setrows(response.data.userlist)
             setGroup(response.data.group)
@@ -48,28 +55,8 @@ function Store_list(props){
     }
     var row = sort_group.flat()
     
-    const rendering = (prop) =>{
-      
-        
-        switch(prop){
-            case 1:
-                return(<><LooksOneIcon/></>)
-            case 2:
-                return(<>{'\u00A0'}{'\u00A0'}<LooksTwoIcon/></>)
-
-            case 3:
-                return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks3Icon/></>)
-            
-            case 4:
-                return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks4Icon/></>)
-            
-            case 5:
-                return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks5Icon/></>)
-            
-            case 6:
-                return(<>{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}<Looks6Icon/></>)
-            }
-    }
+    
+    
 
     return(
     <Table  bordered hover>
@@ -92,12 +79,13 @@ function Store_list(props){
         {props.rows.map((event,idx)=>(
             <tr key={event.id}>
             <td>{(props.rows.length)-(idx)}</td>
-            <td style={{textAlign:'left'}}>{rendering(event.level)}{event.agency_name}</td>
+            <td style={{textAlign:'left'}}>{event.agency_name}</td>
             <td>{event.manager_name}</td>
             <td>{event.username}</td>
             <td>{event.agency_tell}</td>
             <td>{event.counter}</td>
-            <td ><Form.Select style={{width:'100%'}}  value={event.state} onChange={(e) => {  
+            <td>{event.state}</td>
+            {/* <td ><Form.Select style={{width:'100%'}}  value={event.state} onChange={(e) => {  
                     setselect(e.target.value)
 
                     axios
@@ -117,16 +105,16 @@ function Store_list(props){
                 }>
                 <option value="정상">정상</option>
                 <option value="정지">정지</option>
-            </Form.Select></td>
+            </Form.Select></td> */}
             <td>{event.date_joined}</td>
             <td>{event.last_login}</td>
             <td>
                 <div style={{display: 'flex',justifyContent: 'center'}}>
                     <div style={{marginRight:'5px'}}>
-                        <Agency_edit_modal setloadstate={props.setloadstate} id={event.id} />
+                        {/* <Agency_edit_modal setloadstate={props.setloadstate} id={event.id} /> */}
                     </div>
                     <div style={{marginLeft:'5px'}}>
-                        <Under_create_modal setloadstate={props.setloadstate} id={event.id} />
+                        {/* <Under_create_modal setloadstate={props.setloadstate} id={event.id} /> */}
                     </div>
                 </div>
 
@@ -144,6 +132,7 @@ function Btn(props){
     const [search_name,setsearch_name] =useState('')
     const [search_num,setsearch_num] =useState('')
     const [search_email,setsearch_email] =useState('')
+
     const goturl = useSelector((state) => state);
 
     const handleSelect = (e) => {
@@ -161,24 +150,30 @@ function Btn(props){
       const handelemail = (e) => {
         setsearch_email(e.target.value);
       };
+      
     return(
         <>
         <Box sx={{display:"flex", justifyContent:'flex-start', margin:0}} className="table_btn">
         
-            <Form.Select style={{width:150}}  onChange={handleSelect}>
+            <Form.Select style={{width:150}}  onChange={handleSelect} value={select}>
                 <option>상태</option>
                 <option value="정상">정상</option>
                 <option value="정지">정지</option>
             </Form.Select>
         
-            <TextField  label="이름" size="small" variant="outlined" onChange={handlename} />
-            <TextField  label="전화번호" size="small" variant="outlined" onChange={handelnum}/>
-            <TextField  label="이메일" size="small" variant="outlined" onChange={handelemail}/>
+            <TextField  label="이름" size="small" variant="outlined" onChange={handlename} value={search_name}/>
+            <TextField  label="전화번호" size="small" variant="outlined" onChange={handelnum} value={search_num}/>
+            <TextField  label="이메일" size="small" variant="outlined" onChange={handelemail} value={search_email}/>
 
             <Button variant="primary"
             
             onClick={()=>{
                 props.setloadstate('loaded')
+                setselect('')
+                setsearch_name('')
+                setsearch_num('')
+                setsearch_email('')
+
             }}
         
             >초기화</Button>
@@ -191,6 +186,7 @@ function Btn(props){
                     search_name:search_name,
                     search_num:search_num,
                     search_email:search_email,
+                    'id':window.localStorage.getItem('id'),
 
                         })
                         .then(function (response) {

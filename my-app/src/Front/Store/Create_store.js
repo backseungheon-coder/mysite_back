@@ -36,7 +36,7 @@ const goturl = useSelector((state) => state);
                             axios
                                 .post(`${goturl}/store/`, {
                                             mode:'create',
-                                            agency_id:props.agency,
+                                            agency_id:window.localStorage.getItem("id"),
                                             store_name: props.store_name,
                                             store_tell: props.store_tell,
                                             store_add: props.store_addr,
@@ -46,7 +46,8 @@ const goturl = useSelector((state) => state);
                                         .then(function (response) {
                                             
                                             props.handleClose()
-                                            props.setchange('needchange')
+                                            props.setchange('loaded')
+                                            props.setloadstate('loaded')
                                         })
                                         .catch(function (error) {
                 

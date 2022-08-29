@@ -31,7 +31,6 @@ export default function ControlledTabs(props) {
     if(load === 'needload'){
         axios.get(`${goturl}/agency/`)
         .then((response) => {
-          alert('hi');
         seta_data([...response.data])
         setLoad('laoded')
         
@@ -43,13 +42,8 @@ export default function ControlledTabs(props) {
     return (
     
       <>
-        <Form.Select aria-label="Default select example" className="mb-3" style={{height:'60px'}}
-        onChange={onChange6}
-        >
-                        <option>대리점</option>
-                        {a_data.map((event,idx)=>(
-                            <option value={event.id} key={idx}>{event.agency_name}</option>
-                        ))}
+        <Form.Select aria-label="Default select example" className="mb-3" style={{height:'60px'}}>
+                        <option value={window.localStorage.getItem("id")}>{window.localStorage.getItem("loggeduser")}</option>
             </Form.Select>
             
 

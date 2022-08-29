@@ -57,9 +57,11 @@ const Notice_Box = styled.div`
     border-radius:20px;
     background-color:white;
     display:flex;
+    flex-direction:column;
     justify-content: center;
     
 `
+
 
 const Bottom_sub_Box = styled.div`
     margin:10px;
@@ -178,6 +180,7 @@ function Matin_table(props){
                 </Top_Box_con>
                 
                 <Notice_Box>
+                <div style={{fontSize:'30px',textAlign:'center'}}>공지사항</div>
                     <Dash_Notice/>
                 </Notice_Box>
                 <Bottom_sub_Box>                    

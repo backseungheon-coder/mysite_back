@@ -9,7 +9,7 @@ import axios from 'axios';
 import {Form,InputGroup,Collapse } from 'react-bootstrap';
 // import S_buttons from './S_buttons.js';
 
-import Cal_create_modal from './modals/Cal_create_modal.js'
+// import Cal_create_modal from './modals/Cal_create_modal.js'
 import fileDownload from 'react-file-download';
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,6 +18,8 @@ import Date_picker from './Date_picker.js'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {useSelector} from 'react-redux';
+
+
 
 const Ex_Button = styled.button`
 background-color:transparent;
@@ -61,14 +63,38 @@ function Main_table(){
     const [load,setLoad] = useState('needload');
     const [a_data, seta_data] = useState([]);
     const [checked, setChecked] = useState([]);
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
+
+    const [searched_change, setsearched_change] = useState('unsearched')
+    const [loadstate, setloadstate] = useState('loaded');
+    const [s_rows,sets_rows] = useState([])
+    const [rows, setrows] = useState([])
+    const [totalcount, setTotalcount] = useState();
+
+
+
+    const [search_name,setsearch_name] = useState('');
+    const [agency_id,setagency_id] = useState('');
+    const [submit_date,setsubmit_date] = useState('');
+    const [now_cate,setnow_cate] = useState('');
+    const [cal_cate,setcal_cate] = useState('');
+
     const goturl = useSelector((state) => state);
-    // const ExampleCustomInput = ({ value, onClick }) => (
-    //     <Button variant="outline-secondary"className="example-custom-input" style={{margin:0,width:130}} onClick={onClick}>{value}</Button>
-    // );
 
-
-
+    if(loadstate==='loaded'){
+      axios.post(`${goturl}/store/`,{
+        'mode':'get_front',
+        'id': window.localStorage.getItem('id'),
+      })
+      .then((response) => {
+        setrows([...response.data])
+        setloadstate('needload')
+        setTotalcount([...response.data].length)
+          
+        })  
+    }
+    
+    
     if(load === 'needload'){
         axios.get(`${goturl}/agency/`)
         .then((response) => {
@@ -76,20 +102,16 @@ function Main_table(){
         setLoad('laoded')        
       })
     }
-
-    if(open == true){
+    if(open == false){
       var element =(
-        <><KeyboardArrowUpIcon sx={{ fontSize: 30 }}/></>
+        <><KeyboardArrowDownIcon sx={{ fontSize: 30 }}/></>
       )
     }
     else{
       var element =(
-    
-        <><KeyboardArrowDownIcon sx={{ fontSize: 30 }}/></>
+        <><KeyboardArrowUpIcon sx={{ fontSize: 30 }}/></>
       )
-
     }
-
 
     return(
         <Box
@@ -99,6 +121,8 @@ function Main_table(){
             m:2,
             height:'auto',
         }}
+        
+        
       >
               <Box sx={{display: 'flex',justifyContent: 'space-between', marginTop:2, alignItems: 'center'}}>
                 
@@ -107,7 +131,7 @@ function Main_table(){
 
                       onClick={() => {
                       
-                            const url = `${goturl}/create/excel/`;
+                            const url =`${goturl}/create/excel/`;
                             const formData = new FormData();
                             var counter = 0;
                             for(var i = 0; i < checked.length; i++) {
@@ -125,10 +149,11 @@ function Main_table(){
                                 "Content-Type":"application/json",
                                 }
                         }).then(function(response){
-                          var url_local = `${goturl}`
+                          var url_local = `https://api.nestatest.shop`
                           var media = response.data
                           var donw = url_local+media
                           fetch(donw)
+                          .then( console.log(donw))
                           .then(res => res.blob()) // Gets the response and returns it as a blob
                           .then(blob => {
                               fileDownload(blob, '가맹점_리스트.xlsx');
@@ -162,89 +187,131 @@ function Main_table(){
                           </Open_button>
                       
                           <Form.Control
+                          
+                          onChange={(e)=>{
+                            setsearch_name(e.target.value);
+                          }}
+
                           aria-label="Recipient's username"
                           aria-describedby="basic-addon2"
                           style={{border:'none',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',height:'50px'}}
+                          value={search_name}
                           />
 
+                          
+                          
+                          <Open_button
 
-                          <InputGroup.Text style={{border:'none',backgroundColor:'#fff',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'0px 50px 50px 0px',height:'50px'}}><SearchIcon sx={{color:'#A9A9A9'}}/></InputGroup.Text>
+                            onClick={()=>{
+                              axios
+                              .post(`${goturl}/store_search/`, {
+                                        'id': window.localStorage.getItem('id'),
+                                        search_name:search_name,
+                                        agency_id:agency_id,
+                                        submit_date:submit_date,
+                                        now_cate:now_cate,
+                                        cal_cate:cal_cate,
+
+                                      })
+                                      .then(function (response) {
+                                          console.log(response.data);
+                                          setrows([...response.data]);
+                                          
+                                      })
+                                      .catch(function (error) {
+                                          console.log(error);
+                                      });
+                            }
+                            }
+
+                          style={{border:'none',backgroundColor:'#fff',boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',borderRadius:'0px 50px 50px 0px',height:'50px'}}><SearchIcon sx={{color:'#A9A9A9'}}/></Open_button>
                       </InputGroup>
                   </Box>
                   <Box sx={{display: 'flex'}}>
-                      <Cal_create_modal checked={checked} setChecked={setChecked}/>
-                      <Create_store val='store_create' setchange={setchange} />
+                      <Create_store val='store_create' setchange={setloadstate} />
                   </Box>
 
               </Box>
 
- 
-
+                            
               <Box  sx={{display: 'flex',justifyContent: 'center',minHeight:38,marginTop:'20px'}}>
               <Collapse in={open} >
             
                   <div id="example-collapse-text" >
                         <div style={{display: 'flex',marginLeft:'20px'}}>
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
-                              <option>대리점</option>
+                          {/* <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}
+                                                    onChange={(e)=>{
+                                                      setagency_id(e.target.value);
+                                                    }}
+                          >
+                              <option value={null}>대리점</option>
                               {a_data.map((event,idx)=>(
                                   <option value={event.id} key={idx}>{event.agency_name}</option>
                               ))}
-                          </Form.Select>
+                          </Form.Select> */}
 
                           
-                          <Date_picker name={'등록일'}/>
+                          <Date_picker name={'등록일'} submit_date={submit_date}/>
 
+                          {/* <Date_picker name={'설치일'}/> */}
 
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
+                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}
+                          onChange={(e)=>{
+                            setnow_cate(e.target.value);
+                          }}
+                          >
                               <option>검토현황</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
                           </Form.Select>
-
+{/* 
                           <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>설치현황</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
-                          </Form.Select>
+                          </Form.Select> */}
 
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
+                          {/* <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>매장현황</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
-                          </Form.Select>
+                          </Form.Select> */}
 
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
+                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}
+                                                                              onChange={(e)=>{
+                                                                                setcal_cate(e.target.value);
+                                                                              }}
+                          >
                               <option>정산</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
-                              <option value="반려">반려</option>
-                              <option value="보완완료">보완완료</option>
+                              {/* <option value="반려">반려</option>
+                              <option value="보완완료">보완완료</option> */}
                           </Form.Select>
 
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
+                          {/* <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>월별정산</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
-                          </Form.Select>
+                          </Form.Select> */}
 
-                          <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
+                          {/* <Form.Select aria-label="Default select example" style={{width:130,borderRadius:'0px',marginLeft:'10px',marginRight:'10px'}}>
                               <option>가맹점명</option>
                               <option value="대기">대기</option>
                               <option value="승인">승인</option>
                               <option value="반려">반려</option>
                               <option value="보완완료">보완완료</option>
-                          </Form.Select>
+                          </Form.Select> */}
 
-                          <Date_picker name={'설치일'}/>
+                         
                         </div>
                       </div>
             
@@ -252,7 +319,7 @@ function Main_table(){
               </Box>
 
               <Box sx={{marginBottom:5}}>
-                <Store_list checked={checked} setChecked={setChecked} change={change} setchange={setchange} />
+                <Store_list setTotalcount={setTotalcount} rows={rows} totalcount={totalcount} setsearched_change={setsearched_change} searched_change={searched_change} s_rows={s_rows} checked={checked} setChecked={setChecked} change={change} setchange={setloadstate} />
               </Box>          
       </Box>
     )

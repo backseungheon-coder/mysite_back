@@ -43,7 +43,7 @@ export default function Notice_list(props){
 
     return(
       <>
-      <div style={{width: '95%', height: '80%',display: 'flex',flexDirection: 'column',justifyContent: 'center'}}>
+      <div style={{width: '95%', height: '80%',display: 'flex',flexDirection: 'column',marginTop: '10px'}}>
         <Table hover style={{marginTop:'0px',width:'100%',display:'flex',flexDirection:'column',justifyContent: 'center'}}>
 
         <thead style={{display:'flex', justifyContent: 'center',backgroundColor:'white',height:'50px',alignItems: 'center'}}>

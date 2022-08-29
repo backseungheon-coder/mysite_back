@@ -188,6 +188,8 @@ class Front_StoreList(APIView):
         list = []
 
 
+
+
         for x in stores:
                     list.append(
                         {
@@ -207,7 +209,6 @@ class Front_StoreList(APIView):
                         'cal_date':x.cal_date,
                         'test1':'test1',
                         'test2':'test2',
-
                         }
                     )
                 
@@ -246,11 +247,18 @@ class Front_StoreList(APIView):
             return Response( status=status.HTTP_201_CREATED)  
 
         elif(request.data.get('mode') == 'get_front'):
+
+
             user = get_object_or_404(User, pk=request.data.get('id'))
             
+
+            
             list=[]
-            print(user)
-            store_list = get_list_or_404(Store, agency_id=user.id)
+            
+            
+            store_list = get_list_or_404(Store, agency_id=user)
+
+
 
             for x in store_list:
                     list.append(
@@ -364,8 +372,8 @@ class front_AgencyList(APIView):
     def post(self,request):
         
         serializer = Useredit(data=request.data)
-
         
+        print('hi')
         if request.data.get('mode')=='get':
             agency = get_object_or_404(User, pk=request.data.get('id'))
             
@@ -379,6 +387,9 @@ class front_AgencyList(APIView):
                 'email_addres' : agency.email_address,
                 }
             return JsonResponse(data)
+
+
+                        
 
         
         elif request.data.get('mode')=='get_log':
@@ -449,7 +460,7 @@ class front_Num_a(APIView):
 
 
     def post(self, request):
-
+        print('hi')
         group_list = []
         userlist = []
         level = Level.objects.all()
@@ -532,92 +543,95 @@ class front_Num_a(APIView):
         return Response( status=status.HTTP_201_CREATED)
      
 class fornt_StoreSearchView(APIView):
+    
 
     def post(self, request):
 
-
-
-
-        store_search = request.data.get('store_search')
-
-        agency_sort = request.data.get('agency_sort')
-
-        now_sort = request.data.get('now_sort')
-
-        inst_sort = request.data.get('inst_sort')
-
-        store_sort = request.data.get('store_sort')
-
-        cal_sort = request.data.get('regi_date')
-
-        month_sort = request.data.get('month_sort')
-
-        stname_sort = request.data.get('stname_sort')
-
-
-
-
-
-        store = Store.objects.all()
         
-        if store_search:
-               store = store.filter(
-                    Q(store_name__icontains=store_search)|Q(store_tell__icontains=store_search)|Q(store_add__icontains=store_search)
-               ).distinct() 
+        try:
+            search_name = request.data.get('search_name')
 
-        if agency_sort:
-               store = store.filter(
-                    Q(agency_id__icontains=agency_sort)  # 제목검색
-               ).distinct()
+            agency_id = request.data.get('agency_id')
 
-        if now_sort:
-               store = store.filter(
-                    Q(now__icontains=now_sort)  # 제목검색
-               ).distinct()
+            submit_date = request.data.get('submit_date')
 
-        if cal_sort:
-               store = store.filter(
-                    Q(now__icontains=cal_sort)  # 제목검색
-               ).distinct()
-        
-        user = get_object_or_404(User, pk=request.data.get('id'))
-        list=[]
-        store_list = get_list_or_404(Store, agency_id=user.id)
+            now_cate = request.data.get('now_cate')
 
-        
+            cal_cate = request.data.get('cal_cate')
+
+
+
+            user = get_object_or_404(User, pk=request.data.get('id'))
+                
+
+                
+            list=[]
+                
+            store = Store.objects.all()
             
 
-        for x in store:
-                for y in store_list:
-                    if y.id == x.id:
-                        print(y.id)
 
-                        list.append(
-                            {
-                            'id':str(y.id),
-                            'agency_id':str(y.agency_id),
-                            'agency_name':y.agency_name,
-                            'store_name':y.store_name,
-                            'store_tell':y.store_tell,
-                            'store_add':y.store_add,
-                            'memo':y.memo,
-                            'created_time':y.created_time,
-                            'created_at':y.created_at,
-                            'now':y.now,
-                            'now_memo':y.now_memo,
-                            'state':y.state,
-                            'cal_name':y.cal_name,
-                            'cal_date':y.cal_date,
-                            'test1':'test1',
-                            'test2':'test2',
+            if search_name:
+                store = store.filter(
+                    Q(store_name__icontains=search_name) | Q(store_tell__icontains=search_name) | Q(store_add__icontains=search_name)
+                ).distinct()
+
+            if request.data.get('agency_id') != '':
+                agency_name = get_object_or_404(User, id=ag_id).agency_name
+                store = store.filter(
+                    Q(agency_name__icontains=agency_name) 
+                ).distinct()
+
+            if submit_date:
+                store = store.filter(
+                    Q(created_at__icontains=submit_date) 
+                ).distinct()
+
+            if now_cate:
+                store = store.filter(
+                    Q(now__icontains=now_cate)
+                ).distinct()
+
+            
+
+
+            store_list = get_list_or_404(store, agency_id=user)
+
+
+            for x in store_list:
+                list.append(
+                    {
+                        'id':x.id,
+                        'agency_id':x.agency_id,
+                        'agency_name':x.agency_name,
+                        'store_name':x.store_name,
+                        'store_tell':x.store_tell,
+                        'store_add':x.store_add,
+                        'memo':x.memo,
+                        'created_time':x.created_time,
+                        'created_at':x.created_at,
+                        'now':x.now,
+                        'now_memo':x.now_memo,
+                        'state':x.state,
+                        'cal_name':x.cal_name,
+                        'cal_date':x.cal_date,
+                        'test1':'test1',
+                        'test2':'test2',
                             
 
-                        }
-                        )
-                    
-                
+                    }
+                )
+
         
-        return JsonResponse(list, safe=False)
+        
+            serializer = StoreSerializer(list, many=True)
+
+            return Response(serializer.data)
+        
+        except:
+
+
+            return Response( status=status.HTTP_201_CREATED)
 
 
 
@@ -627,18 +641,16 @@ class fornt_StoreSearchView(APIView):
 class fornt_SearchView(APIView):
 
     def post(self, request):
-        
         group_list = []
-        agency = User.objects.all()
+        # agency = User.objects.all()
         search_name = request.data.get('search_name')  # 정렬기준
         search_num = request.data.get('search_num')
         select = request.data.get('select')
         search_email = request.data.get('search_email')
         agency = get_object_or_404(User, pk=request.data.get('id'))
-
         agency_list = User.objects.order_by()
 
-
+        
         if search_name:
                agency_list = agency_list.filter(
                     Q(username__icontains=search_name) | Q(manager_name__icontains=search_name) | Q(agency_name__icontains=search_name)  # 제목검색
@@ -660,10 +672,14 @@ class fornt_SearchView(APIView):
                ).distinct()
         
 
+  
+
         for x in agency_list:
             if x.group_user == agency.group_user:
                 
                 group_list.append(x)
+
+        
 
         
         

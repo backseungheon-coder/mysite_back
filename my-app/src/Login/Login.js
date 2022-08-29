@@ -31,7 +31,7 @@ function Login(props) {
     const onClickLogin = async () => { 
 
           
-            await fetch('https://api.nestatest.shop/rest-auth/login/', {
+            await fetch('http://localhost:8000/rest-auth/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ function Login(props) {
                     props.setlogined('logged')
                 }
                 axios
-                    .post("https://api.nestatest.shop/manager/agency/", {
+                    .post("http://localhost:8000/manager/agency/", {
                                 mode:'get_log',
                                 username:inputId,
                             })
@@ -201,8 +201,6 @@ function Login(props) {
                         <div className="forgot"><a href="#">비밀번호 찾기</a></div>
                     </div>
                 </div>
-
-                <div className="su"><a href="#">아직 계정이 없으신가요? <span>회원가입</span></a></div>
             </div>
         </div>
     </div>
