@@ -38,3 +38,9 @@ import openpyxl
 
 
 
+class mian_view_test(APIView):
+    def get(self,request):
+        
+        print("test")
+        
+        return Response( status=status.HTTP_201_CREATED) 
