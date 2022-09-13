@@ -147,6 +147,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # REST_AUTH_SERIALIZERS = {
 #     'LOGIN_SERIALIZER': 'Accounts.serializers.LoginUserSerializer',
 # }

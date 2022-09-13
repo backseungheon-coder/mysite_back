@@ -280,10 +280,8 @@ class Front_StoreList(APIView):
                         'test1':'test1',
                         'test2':'test2',
                         
-
                         }
                     )
-                
         
             return JsonResponse(list, safe=False)
         
@@ -679,10 +677,6 @@ class fornt_SearchView(APIView):
                 
                 group_list.append(x)
 
-        
-
-        
-        
         
         for x in group_list:
             
