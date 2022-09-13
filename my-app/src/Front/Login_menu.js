@@ -17,7 +17,7 @@ export default function BasicMenu() {
 
   function handlelogout(e) {
       
-    fetch(`${goturl}/rest-auth/logout/`, {
+    fetch(`https://api.nestatest.shop/rest-auth/logout/`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

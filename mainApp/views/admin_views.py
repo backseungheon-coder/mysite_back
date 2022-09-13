@@ -367,12 +367,12 @@ class StoreSearch(APIView):
         cal_cate = request.data.get('cal_cate')
         
         print('hi')
-
+        
         if search_name:
             store = store.filter(
                 Q(store_name__icontains=search_name) | Q(store_tell__icontains=search_name) | Q(store_add__icontains=search_name)
             ).distinct()
-
+            
         if request.data.get('agency_id') != '':
             agency_name = get_object_or_404(User, id=ag_id).agency_name
             store = store.filter(
@@ -408,8 +408,9 @@ class StoreList(APIView):
         stores = Store.objects.order_by('-created_time')
                 
         serializer = StoreSerializer(stores, many=True)
+        
         list = []
-
+        
 
         for x in stores:
                     list.append(
@@ -491,9 +492,7 @@ class StoreList(APIView):
             return Response( status=status.HTTP_201_CREATED)  
         
         elif(request.data.get('mode') == 'get'):
-            store = get_object_or_404(Store, pk=request.data.get('id'))
-
-           
+            store = get_object_or_404(Store, pk=request.data.get('id'))           
             return Response(store.memo)
         
         elif(request.data.get('mode') == 'cal_get'):
@@ -527,10 +526,10 @@ class GroupList(APIView):
 
     def get(self, request):
         group = Group_user.objects.all()
-      
+
         serializer = GroupSerializer(group, many=True)
         return Response(serializer.data)
-
+        
 class Num_a(APIView):
 
 
@@ -756,7 +755,7 @@ class SearchView(APIView):
 
 
 class Signupview(APIView):
-    
+        
     def post(self, request):
         if request.data.get('mode') == 'under' :
             

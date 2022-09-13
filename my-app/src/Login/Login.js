@@ -21,17 +21,11 @@ function Login(props) {
     const handleInputE = (e) => {
         setInputE(e.target.value)
     }
-    // var body = {
-    //     "username":inputId,
-    //     "email":'',
-    //     "password":inputPw,
 
-    // }
-	// login 버튼 클릭 이벤트
     const onClickLogin = async () => { 
 
           
-            await fetch('http://localhost:8000/rest-auth/login/', {
+            await fetch('https://api.nestatest.shop/rest-auth/login/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +49,7 @@ function Login(props) {
                     props.setlogined('logged')
                 }
                 axios
-                    .post("http://localhost:8000/manager/agency/", {
+                    .post("https://api.nestatest.shop/manager/agency/", {
                                 mode:'get_log',
                                 username:inputId,
                             })

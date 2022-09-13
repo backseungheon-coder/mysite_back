@@ -69,8 +69,8 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
-const url_admin = 'http://127.0.0.1:8000/manager';
-const url_front = 'http://127.0.0.1:8000/front';
+const url_admin = 'https://api.nestatest.shop/manager';
+const url_front = 'https://api.nestatest.shop/front';
 
 
 
