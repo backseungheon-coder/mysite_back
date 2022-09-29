@@ -126,7 +126,7 @@ function Matin_table(props){
     if(loadstate ==='needload'){
         const url =`${goturl}/dash/`;
         const formData = new FormData();
-        formData.append("id",window.localStorage.getItem('id'));
+        formData.append("id",window.sessionStorage.getItem('id'));
 
         axios({
             method: "POST",

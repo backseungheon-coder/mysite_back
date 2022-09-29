@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+    <div id="loginwrap">
+        <div id="right">
+            <div class="right">
+                <h2>로그인하기</h2>
+
+                <form action="">
+                    <div class="inputBox">
+                        <input type="text" name="uEmail" id="uEmail" autocomplete="off" required>
+                        <label for="uEmail">
+                            <span>이메일</span>
+                        </label>
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="password" name="uPassword" id="uPassword" class="pw" autocomplete="off" required>
+                        <label for="uPassword">
+                            <span>비밀번호</span>
+                        </label>
+                        <button type="button">show</button>
+                        <button type="button" class="passwordEye">hide</button>
+                    </div>
+
+                    <input type="submit" name="uSubmit" id="uSubmit" value="로그인">
+                    
+                    <div class="clearfix">
+                        <div class="inputCheck">
+                            <input type="checkbox" name="uCheckbox" id="uCheckbox">
+                            <label for="uCheckbox">
+                                <span>로그인 유지</span>
+                            </label>
+                        </div>
+                        <div class="forgot"><a href="#">비밀번호 찾기 ></a></div>
+                    </div>
+                </form>
+
+                <div class="su"><a href="#">아직 계정이 없으신가요? <span>회원가입</span></a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -25,7 +25,6 @@ function Main(props) {
 
     return (
       <>
-        <BrowserRouter>
   <div>
   <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static" sx={{backgroundColor:'#ffffff',height:'65px'}}>
@@ -99,8 +98,6 @@ function Main(props) {
         </div>
       </footer>
     </div>
-    
-    </BrowserRouter>
   
         </>
     );

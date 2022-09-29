@@ -80,18 +80,23 @@ function Main_table(){
     const [cal_cate,setcal_cate] = useState('');
 
     const goturl = useSelector((state) => state);
-
+    // ${goturl}/store/
     if(loadstate==='loaded'){
       axios.post(`${goturl}/store/`,{
         'mode':'get_front',
-        'id': window.localStorage.getItem('id'),
+        'id': window.sessionStorage.getItem('id'),
       })
       .then((response) => {
+        
         setrows([...response.data])
         setloadstate('needload')
         setTotalcount([...response.data].length)
           
         })  
+        .catch(function (error) {
+          console.log(window.sessionStorage.getItem('id'));
+          
+        })
     }
     
     
@@ -205,7 +210,7 @@ function Main_table(){
                             onClick={()=>{
                               axios
                               .post(`${goturl}/store_search/`, {
-                                        'id': window.localStorage.getItem('id'),
+                                        'id': window.sessionStorage.getItem('id'),
                                         search_name:search_name,
                                         agency_id:agency_id,
                                         submit_date:submit_date,

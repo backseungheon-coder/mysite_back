@@ -17,8 +17,6 @@ class TabAdmin(admin.ModelAdmin):
     inlines = [Review_admin]
 
 
-
-
 #---------------------------------------------공지사항--------------------------------------------------
 
 class Notice_file_admin(admin.TabularInline):

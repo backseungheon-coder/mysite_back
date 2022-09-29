@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'allauth',
     'allauth.account',    
+    'allauth.socialaccount',
     'rest_framework.authtoken',
     'mainApp',
     'django.contrib.admin',
@@ -49,11 +50,32 @@ INSTALLED_APPS = [
     
 ]
 
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+
+SITE_ID = 1
+
+AUTH_USER_MODEL = 'pybo.T_User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.naver.com'
+EMAIL_HOST_USER = 'hernny9896@naver.com'
+EMAIL_HOST_PASSWORD= "bsh69080202!"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+DEFAULT_FROM_MAIL = '<네이버 ID>'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+
 
 MIDDLEWARE = [
     

@@ -22,10 +22,10 @@ import './navsytle.scss'
 import Dash from './Dash/Dash.js';
 
 function Main(props) {
-  const name = window.localStorage.getItem('loggeduser')
+  const name = window.sessionStorage.getItem('loggeduser')
     return (
       <>
-        <BrowserRouter>
+
   <div>
   <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static" sx={{backgroundColor:'#ffffff',height:'65px'}}>
@@ -94,8 +94,7 @@ function Main(props) {
         </div>
       </footer>
     </div>
-    
-    </BrowserRouter>
+
   
         </>
     );

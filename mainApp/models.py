@@ -43,13 +43,21 @@ class User(AbstractUser):
     agency_name = models.CharField(max_length=300,null=True, blank=True) #대리점명
     manager_name = models.CharField(max_length=300,null=True, blank=True) #담당자명
     agency_tell = models.CharField(max_length=300,null=True,blank=True) # 휴대전화
+    certi_num = models.CharField(max_length=300,null=True,blank=True) # 인증번호
     store_count = models.IntegerField(null=True)
     state = models.CharField(max_length=10, default='정상') #대리점명
+
+    needed_agreement = models.BooleanField(default=False)
+    marketing_agreement = models.BooleanField(default=False)
+
+    possLog = models.BooleanField(default=False)
     groups = None
     first_name = None
     last_name = None
     user_permissions = None
     email_address = models.EmailField( max_length=254,null=True,blank=True)
+
+
 
 class Group(models.Model):
     group = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True)

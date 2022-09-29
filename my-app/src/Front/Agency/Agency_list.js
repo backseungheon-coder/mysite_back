@@ -29,7 +29,7 @@ function Store_list(props){
     if(props.loadstate==='loaded' || props.change==='needchange'){
 
         axios.post(`${goturl}/agency_num/`,{
-            'id': window.localStorage.getItem('id')
+            'id': window.sessionStorage.getItem('id')
         }
         )
 
@@ -186,7 +186,7 @@ function Btn(props){
                     search_name:search_name,
                     search_num:search_num,
                     search_email:search_email,
-                    'id':window.localStorage.getItem('id'),
+                    'id':window.sessionStorage.getItem('id'),
 
                         })
                         .then(function (response) {

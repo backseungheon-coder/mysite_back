@@ -1,10 +1,11 @@
 from datetime import datetime
 
+import hmac
 import http
 from platform import python_branch
 import re
 from string import printable
-from time import time
+import time
 from tokenize import group
 from tracemalloc import get_object_traceback
 from turtle import title
@@ -19,7 +20,7 @@ from rest_framework.generics import get_object_or_404
 from ..serializers import ReviewSerializer,TabsSerializer,Notice_get_Form,StoreSerializer,MemoSerializer,AccountSerializer,userSerializer,DocumentForm,LevelSerializer,Cal_create_Form,Cal_get_inner_Form,GroupSerializer,FAQ_create_Form,UserForm,GroupcreateSerializer,Useredit,RequestForm,CommentsForm,Cal_get_Form,FAQ_get_Form
 from ..models import Review,Tabs,Store,User,Level,Notice,Notice_file,Group_user,Division,Requests,Comments,CalAdd,FAQ,Cal_inner,Cal_store,Images
 from django.utils import timezone
-import json
+import json,random
 from django.http import JsonResponse ,HttpResponse
 from argon2 import PasswordHasher
 from django.db.models import Q
@@ -31,11 +32,12 @@ from django.http import FileResponse
 from django.core.files.storage import FileSystemStorage
 import mimetypes
 import zipfile
-import urllib
 from urllib.parse import quote_plus
 from urllib.parse import unquote_plus
 import openpyxl
 from urllib import parse
+# from .utils import make_signature
+import requests,base64,hashlib
 
 class Login_view(APIView):
       def post(self,request):
@@ -759,9 +761,7 @@ class Signupview(APIView):
         
     def post(self, request):
         if request.data.get('mode') == 'under' :
-            
             agency = get_object_or_404(User, pk=request.data.get('id'))
-
             levels=(agency.level.id+1)
             levels = get_object_or_404(Level, id=levels)
             group_link=(agency.group_user)
@@ -772,12 +772,13 @@ class Signupview(APIView):
                 username=request.data.get('username'),
                 password=request.data.get('password1'),
                 agency_name=request.data.get('agency_name'),
-                agency_tell=request.data.get('agency_tell'),
                 manager_name=request.data.get('manager_name'),
                 email=request.data.get('agency_email'),
                 level=levels,
                 divide=divides,
                 group_user=group_link
+
+
             )
 
             serializer = Useredit(data=request.data, instance=user_created)
@@ -788,7 +789,46 @@ class Signupview(APIView):
 
             return Response(status=status.HTTP_204_NO_CONTENT)
 
+        elif request.data.get('mode') == 'Signup':
+            divides = get_object_or_404(Division, id=1)
+            levels = get_object_or_404(Level, id=2)
+
+            group_link = Group_user.objects.create(
+                group=request.data.get('group')
+                
+            )
+            
+
+            user_created = User.objects.create(
+                group=request.data.get('group'),
+                username=request.data.get('username'),
+
+                password=request.data.get('password1'),
+                
+                agency_name=request.data.get('agency_name'),
+                agency_tell=request.data.get('agency_tell'),
+                manager_name=request.data.get('manager_name'),
+                email=request.data.get('agency_email'),
+                level=levels,
+                divide=divides,
+                group_user=group_link,
+                needed_agreement=True,
+                marketing_agreement=request.data.get('marketing_agreement'),
+            )
+                                    
+            
+
+            serializer = Useredit(data=request.data, instance=user_created)
+            if serializer.is_valid():
+                serializer.password =(request.data.get('password1'))
+                serializer.save()
+            print(serializer.data)
+            
+            return Response(serializer.data)
+
+        
         else:
+                # 여기야
             divides = get_object_or_404(Division, id=1)
             levels = get_object_or_404(Level, id=1)
 
@@ -796,8 +836,6 @@ class Signupview(APIView):
                 group=request.data.get('group')
                 
             )
-
-            
 
             user_created = User.objects.create(
                 group=request.data.get('group'),
@@ -821,6 +859,8 @@ class Signupview(APIView):
             
 
             return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        
 
 class Agency_del(APIView):
 
@@ -1293,3 +1333,92 @@ class Dash_Admin_view(APIView):
     def post(self, request , pk):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+#-------------------------------------------------------------------------------메시지 인증번호 확인
+class Sms_check(APIView):
+    def post(self, request):
+        user  = get_object_or_404(User, username=request.data.get('agency_email'))
+        if request.data.get('certi') == user.certi_num:
+            print('성공')
+            user.possLog = True
+            user.save()
+            data = {
+                "success": True,
+            }
+            return JsonResponse(data=data)
+        else:
+            data = {
+                "success": False,
+            }
+            return JsonResponse(data=data)
+
+#-------------------------------------------------------------------------------메시지 보내기
+
+class SmsSendView(APIView):
+    secret_key  = 'TjU5TOqoxFqflUtOG8Ynhw8GkxSbQrCnaSPJqYTw'
+
+    def make_signature(self,string):
+        secret_key = bytes('TjU5TOqoxFqflUtOG8Ynhw8GkxSbQrCnaSPJqYTw', 'UTF-8')
+        string = bytes(string, 'UTF-8')
+        string_hmac = hmac.new(secret_key, string, digestmod=hashlib.sha256).digest()
+        string_base64 = base64.b64encode(string_hmac).decode('UTF-8')
+        return string_base64
+
+    def send_sms(self, phone_number, auth_number):
+        timestamp = str(int(time.time() * 1000))
+        access_key = '6a9pS5ADEIHjJ2ihSPHK'
+        string_to_sign = "POST " + '/sms/v2/services/ncp:sms:kr:292768866528:sms_auth/messages' + "\n" + timestamp + "\n" + access_key
+        signature = self.make_signature(string_to_sign)
+        headers = {
+            'Content-Type': 'application/json; charset=utf-8',
+            'x-ncp-apigw-timestamp': timestamp,
+            'x-ncp-iam-access-key': access_key,
+            'x-ncp-apigw-signature-v2':signature,
+        }
+
+        data = {
+            'type':'SMS',
+            'contentType':'COMM',
+            'countryCode':'82',
+            'from':f'01055777810',
+            "content": f'인증번호 [{auth_number}]',
+            "messages": [{"to": f'{phone_number}'}]
+        }
+        
+        requests.post("https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:292768866528:sms_auth/messages", headers=headers, data = json.dumps(data))
+
+    
+
+        
+
+    def post(self, request, *args, **kwargs):
+        data = request.data.get('agency_tell')
+
+        
+        user  = get_object_or_404(User, username=request.data.get('agency_email'))
+        print(user)
+        try:
+            input_mobile_num = data
+            auth_num = random.randint(10000, 100000) # 랜덤숫자 생성, 5자리로 계획하였다.
+
+      
+            user.certi_num = auth_num
+            user.agency_tell = data
+            user.save()
+
+            print(data)
+            print(auth_num)
+            
+            self.send_sms(phone_number=data, auth_number=auth_num)
+            return JsonResponse({'message': '인증번호 발송완료'}, status=200)
+
+        except user.DoesNotExist: # 인증요청번호 미 존재 시 DB 입력 로직 작성
+            user.objects.create(
+                phone_number=input_mobile_num,
+                auth_number=auth_num,
+            ).save()
+            self.send_sms(phone_number=input_mobile_num, auth_number=auth_num)
+            
+            return JsonResponse({'message': '인증번호 발송 및 DB 입력완료'}, status=200)
+
+

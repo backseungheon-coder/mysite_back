@@ -33,7 +33,7 @@ export default function BasicMenu() {
 
     .then(response => {
     
-    window.localStorage.clear();
+    window.sessionStorage.clear();
     window.location.reload();
     })
   }

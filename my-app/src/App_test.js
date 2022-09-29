@@ -112,9 +112,7 @@ function App() {
     );
   }
   else{
-    if (window.sessionStorage.getItem('level') === '0'){
-
-    return (
+        return (
       // <Login/>
       
       <>
@@ -122,21 +120,7 @@ function App() {
               <Main backend={HTML5Backend}  />
             </Provider>
       </>
-    );
-    }
-    else{
-    
-      return (
-        <>
-
-          <Provider store={store_front}>
-            <Main_front  backend={HTML5Backend}/>
-          </Provider>
-          
-        </>
-      );
-
-    }
+        )
   }
 
 

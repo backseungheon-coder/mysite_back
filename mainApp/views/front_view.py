@@ -247,20 +247,20 @@ class Front_StoreList(APIView):
             return Response( status=status.HTTP_201_CREATED)  
 
         elif(request.data.get('mode') == 'get_front'):
-
-
-            user = get_object_or_404(User, pk=request.data.get('id'))
             
-
             
+            user = get_object_or_404(User, pk=33 )
+            user = get_object_or_404(User, pk=user.pk)
+            print(user)
+
             list=[]
-            
+
             
             store_list = get_list_or_404(Store, agency_id=user)
 
 
-
             for x in store_list:
+                  
                     list.append(
                         {
                         'id':str(x.id),
@@ -677,6 +677,8 @@ class fornt_SearchView(APIView):
                 
                 group_list.append(x)
 
+
+        
         
         for x in group_list:
             

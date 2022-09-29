@@ -1,6 +1,6 @@
 from django.urls import path,include
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views.admin_views import StoreList, StoreSearch,ReviewDetail,Excel_Create_View,Dash_Admin_view,Image_Del_View,Notice_view,TabView,TabDelete,LoadView,FileDownloadView,Num_a,Images_view,Store_del,AgencyList,LevelList,GroupList,Signupview,Agency_del,SearchView,CommentList,Cal_list,FAQ_list,Login_view
+from .views.admin_views import StoreList,Sms_check, SmsSendView,StoreSearch,ReviewDetail,Excel_Create_View,Dash_Admin_view,Image_Del_View,Notice_view,TabView,TabDelete,LoadView,FileDownloadView,Num_a,Images_view,Store_del,AgencyList,LevelList,GroupList,Signupview,Agency_del,SearchView,CommentList,Cal_list,FAQ_list,Login_view
 from .views.front_view import Dash_Front_view,front_Notice_view,Front_StoreList,front_AgencyList,front_Num_a,fornt_SearchView,fornt_StoreSearchView
 from .views.main_views import mian_view_test
 from django.conf.urls.static import static
@@ -29,6 +29,7 @@ urlpatterns = [
     path('manager/search/', SearchView.as_view()),
 
 
+
     path('manager/agency_num/', Num_a.as_view()),
     #Cal
     path('manager/Cal/', Cal_list.as_view()),
@@ -54,6 +55,9 @@ urlpatterns = [
     #Dash
     path("manager/dash/",Dash_Admin_view.as_view()),
 
+    #sms
+    path("manager/sms/",SmsSendView.as_view()),
+    path("manager/smscheck/",Sms_check.as_view()),
 #------------------------------------------------------------프론트-------------------------------------------------------
 
     path("front/dash/",Dash_Front_view.as_view()),
@@ -88,7 +92,7 @@ urlpatterns = [
     path('front/FAQ/', FAQ_list.as_view()),
 
     path("front/create/excel/",Excel_Create_View.as_view()),
-    
+       
 ]
 
 if settings.DEBUG: 

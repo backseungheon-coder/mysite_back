@@ -42,5 +42,35 @@ class mian_view_test(APIView):
     def get(self,request):
         
         print("test")
-        
+
         return Response( status=status.HTTP_201_CREATED) 
+
+
+        
+
+
+class test_view(APIView):
+    def post(self,request):
+
+        print(request.data.get('test'))
+
+        state = request.data.get('state')
+
+        list = ['정상','대기','반려']
+        
+        if state  == '정상':
+            print('정상')
+        elif state == '대기':
+            print('대기')
+        elif state == '반려':
+            print('반려')
+
+
+
+    
+                
+
+        return Response ( status=status.HTTP_201_CREATED )    
+
+    
+

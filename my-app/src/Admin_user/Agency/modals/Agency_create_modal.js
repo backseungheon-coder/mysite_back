@@ -106,13 +106,138 @@ export default function Memo_modal(props) {
     const [agency_email,setagency_email] = useState('');
 
 
-    const onChange1 = (event) => {setusername(event.target.value);}
+    const [username_avaliable,setusername_avaliable] = useState('none');
+    const [email_avaliable,setemail_avaliable] = useState('none');
+
+
+
+    const isEmail_user = (email) => {
+        const emailRegex =
+            /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        if (email === ''){
+            setusername_avaliable('none')
+        }
+        else{
+            if (emailRegex.test(email) === false){
+                setusername_avaliable('false')
+            }
+            else if (emailRegex.test(email) === true){
+                setusername_avaliable('true')
+            }
+        }
+        return emailRegex.test(email);
+      };
+
+
+    const isEmail_email = (email) => {
+        const emailRegex =
+            /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        if (email === ''){
+            setemail_avaliable('none')
+        }
+        else{
+            if (emailRegex.test(email) === false){
+                setemail_avaliable('false')
+            }
+            else if (emailRegex.test(email) === true){
+                setemail_avaliable('true')
+            }
+        }
+        return emailRegex.test(email);
+      };
+
+
+    
+
+
+      
+
+    const onChange1 = (event) => {
+        isEmail_user(event.target.value)
+        isEmail_email(event.target.value)
+        setusername(event.target.value); 
+        setagency_email(event.target.value);
+    }
     const onChange2 = (event) => {setpassword(event.target.value);}
     const onChange3 = (event) => {setagency_name(event.target.value);}
     const onChange4 = (event) => {setagency_tell(event.target.value);}
     const onChange5 = (event) => {setmanager_name(event.target.value);}
-    const onChange6 = (event) => {setagency_email(event.target.value);}
+    const onChange6 = (event) => {isEmail_email(event.target.value); setagency_email(event.target.value);} 
     const goturl = useSelector((state) => state);
+
+    
+
+
+    if( username_avaliable === 'none' ){
+        var id_form = (
+            <>
+                <TextField fullWidth  className="mb-3" label="이메일ID" value={username} onChange={onChange1} variant="outlined" />
+                <div style={{marginBottom:'15px'}}></div>
+            </>
+
+        )
+    }
+    else if( username_avaliable === 'false'){
+        var id_form = (
+            <>
+            <TextField
+              fullWidth
+              error
+              id="outlined-error-helper-text"
+              label="Error"
+              value={username}
+              onChange={onChange1}
+              helperText="이메일을 형식의 아이디를 입력 하십시오"
+            />
+            <div style={{marginBottom:'15px'}}></div>
+            </>
+        )
+
+    }else if( username_avaliable === 'true'){
+        var id_form = (
+            <>
+            <TextField fullWidth  className="mb-3" label="성공" value={username} onChange={onChange1} variant="outlined" color="success" focused />
+            <div style={{marginBottom:'15px'}}></div>
+            </>
+        )
+    }
+
+
+    if( email_avaliable === 'none' ){
+        var email_form = (
+            <>
+                <TextField fullWidth  className="mb-3" label="이메일" value={agency_email} onChange={onChange6} variant="outlined"/>
+                <div style={{marginBottom:'15px'}}></div>
+            </>
+
+        )
+    }
+    else if( email_avaliable === 'false'){
+        var email_form = (
+            <>
+            <TextField
+              fullWidth
+              error
+              id="outlined-error-helper-text"
+              label="Error"
+              value={agency_email}
+              onChange={onChange6}
+              helperText="이메일을 형식의 아이디를 입력 하십시오"
+            />
+            <div style={{marginBottom:'15px'}}></div>
+            </>
+        )
+
+    }else if( email_avaliable === 'true'){
+        var email_form = (
+            <>
+            <TextField fullWidth  className="mb-3" label="성공" value={agency_email} onChange={onChange6} variant="outlined" color="success" focused />
+            <div style={{marginBottom:'15px'}}></div>
+            </>
+        )
+    }
+
+
 
 
   
@@ -128,6 +253,8 @@ export default function Memo_modal(props) {
         </Button_agency>
 
 
+        
+
         <Modal show={show} onHide={handleClose} >
             <Modal.Header closeButton>
                 <Modal.Title>가맹점 등록</Modal.Title>
@@ -135,8 +262,7 @@ export default function Memo_modal(props) {
             <Modal.Body>
             
             <>
-                <TextField fullWidth  className="mb-3" label="대리점ID" value={username} onChange={onChange1} variant="outlined" />
-                <div style={{marginBottom:'15px'}}></div>
+                {id_form}
                 <TextField fullWidth  label="Password" className="mb-3" type="password" onChange={onChange2} autoComplete="current-password" />
                 <div style={{marginBottom:'15px'}}></div>
                 <TextField fullWidth  className="mb-3" label="대리점명" value={agency_name} onChange={onChange3} variant="outlined" />
@@ -145,7 +271,7 @@ export default function Memo_modal(props) {
                 <div style={{marginBottom:'15px'}}></div>
                 <TextField fullWidth  className="mb-3" label="담당자명" value={manager_name} onChange={onChange5} variant="outlined" />
                 <div style={{marginBottom:'15px'}}></div>
-                <TextField fullWidth className="mb-3" label="이메일" value={agency_email} onChange={onChange6} variant="outlined" />                
+                {email_form}               
 
                 </>
                 </Modal.Body>
@@ -159,7 +285,9 @@ export default function Memo_modal(props) {
 
                         <Button style={{marginLeft:2} } variant="primary" 
                         onClick={() => {  
-                            axios
+
+                            if(username_avaliable === 'true'){
+                                  axios
                             .post(`${goturl}/signup/`, {
                                         mode:'post',
                                         username:username,
@@ -185,7 +313,12 @@ export default function Memo_modal(props) {
                                 handleClose()
                                 props.setchange('needchange')
                                 }
+                                else{
+                                    alert('에러표시된 항목으로 해결 해주시기 바랍니다.')
+                                }
                             }
+                            }                          
+                          
                             >
                         등록
                         </Button>
